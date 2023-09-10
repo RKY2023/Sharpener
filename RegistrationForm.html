@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <title> Book Call</title>
+        <style>
+            body {
+                background: url('https://i.ibb.co/ctq4J31/3aA.png') no-repeat center;
+                background-size: cover;
+            }
+            div {
+                float: left;
+            }
+            form {
+                background-color: white;
+                align-items: center;
+                width: 50%;
+                border: .15rem solid orange;
+                border-radius: 1rem;
+                padding: 1em;
+                margin: 0% 20% 0% 20%;
+            }
+            h1 {
+                text-align: center;
+                color: orange;
+                font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell;
+            }
+            h6 {
+                text-align: center;
+                font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell;
+            }
+            form input {
+                width: 100%;
+            }
+            .btn {
+                color: white;
+                background-color: orange;
+                border: 0px;
+                padding: .5rem;
+                border-radius: .3rem;
+            }
+        </style>
+    </head>
+    <body back>
+        <div>         
+            <ins>YAV</ins>
+        </div>
+        <div style="width: 50%">
+            <form action="#" onsubmit="onsignup(event)">
+                <h1>Book a call</h1>
+                <h6>Book a call slot and our representative will call you within 1hr of selected time.</h6>
+                <hr>
+                <label>Name:</label>
+                <br/>
+                <input type="text" name="username" required>
+                <br/>
+                <label>Email:</label>
+                <br/>
+                <input type="text" name="email" required>
+                <br/>
+                <label>Phone:</label>
+                <br/>
+                <input type="number" name="Phoneno" required>
+                <br/>
+                <label>Time for Call:</label>
+                <br/>
+                <input type="date" style="width: 48%; float: left;" name="bookingdate">
+                <input type="time" style="width: 48%; float: right;" name="bookingtime">
+                <br/>
+                <br/>
+                <input type="button" name="bookcall" value="GET A CALL" class="btn">
+                
+            </form>
+        </div>
+        
+        <div>
+            <input type="button" name="schedulecall" value="schedule a call">
+            <input type="button" name="hire" value="Hire With Us">
+        </div>
+        <script>
+            function onsignup(event){
+                event.preventDefault();
+                console.log(event.target.username.value);
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <title> Book Call</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-6 border border-warning rounded">
+                <form action="#" onsubmit="onsignup(event)">
+                    <h1 class="fs-3 text-center">Login/ SignUp</h1>
+                    
+                    <hr>
+                    <label class="form-label mt-2">Email:</label>
+                    
+                    <input class="form-control useremail" type="text" name="email" required>
+                    
+                    <label class="form-label mt-2">Password:</label>
+                    
+                    <input class="form-control userpasswd" type="password" name="password" required>
+                    
+                    <input class="btn btn-info w-100 my-4" type="button" name="Submit" value="Submit" class="btn">
+                    
+                    <ul class="list-group">
+                        <li class="list-group-item">Item 1</li>
+                        
+                    </ul>
+                </form>
+            </div>
+            
+        </div>
+        <script>
+            const uemail = document.querySelector('.useremail');
+            uemail.addEventListener('mouseout', (e) =>{
+                e.preventDefault();
+                const tt = document.querySelector('ul');
+                tt.children[0].textContent = 'Move mose over Email field';
+
+            });
+            uemail.addEventListener('mouseover', (e) =>{
+                e.preventDefault();
+                const tt = document.querySelector('ul');
+                tt.children[0].textContent = 'Please enter Email';
+
+            });
+            
+        </script>
+    </body>
+</html>
