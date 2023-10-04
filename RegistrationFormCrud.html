@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <title> Book Call</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-6 border border-warning rounded">
+                <form action="#" onsubmit="onsignup(event)">
+                    <h1 class="fs-3 text-center">Book a call</h1>
+                    <h6 class="fd-4 text-center">Book a call slot and our representative will call you within 1hr of selected time.</h6>
+                    <hr>
+                    <label class="form-label mt-2">Name:</label>
+                    
+                    <input id="uname" class="form-control" type="text" name="username" required>
+                    
+                    <label class="form-label mt-2">Email:</label>
+                    
+                    <input id="emailId" class="form-control" type="text" name="email" required>
+                    
+                    <label class="form-label mt-2">Phone:</label>
+                    
+                    <input id="phno" class="form-control" type="number" name="Phoneno" required>
+                    
+                    <!-- <label class="form-label mt-2">Time for Call:</label>
+                    <div class="row g-1">
+                        <input class="col form-control" type="date" name="bookingdate">
+                        <input class="col form-control" type="time" name="bookingtime">
+                    </div> -->
+                    
+                    
+                    
+                    <input id="bookcall" class="btn btn-warning w-100 my-4" type="button" name="bookcall" value="GET A CALL" class="btn">
+                    
+                </form>
+            </div>
+            
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
+        <script>
+            btn = document.getElementById("bookcall");
+            btn.addEventListener("click", function() {
+                upsertData();
+            });
+            function upsertData(){
+                let uname = document.getElementById('uname').value;
+                let emailId = document.getElementById('emailId').value;
+                let phno = document.getElementById('phno').value;
+                userData = {
+                    'name': uname,
+                    'email': emailId,
+                    'phoneNo': phno
+                }
+                axios
+                    .post("https://crudcrud.com/api/1c7490df305e451fa99056bbc1274b7a/UserAppointmentDataSTR",userData)
+                    .then(res => {
+                        console.log('Data inserted')
+                    })
+                    .catch(err => console.log('something went wrong'));
+            }     
+        </script>
+    </body>
+</html>
