@@ -36,7 +36,7 @@ function deleteBlog(){
             reject('ERROR');
         }
     }, 1000);
-   })
+   })git 
 }
 
 //Call the function in the right way so that we can get the desired output
