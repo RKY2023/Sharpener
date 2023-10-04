@@ -288,12 +288,209 @@ Uses of Closures:
 // setTimeout(() => console.log('inside y'), 0)
 // })
 window.addEventListener("DOMContentLoaded", () => { console.log('DOM HAS LOADED') })
-
-
 document.addEventListener("DOMContentLoaded", () => { console.log('DOM HAS LOADED') })
-
-
 window.addEventListener("DOMContentLoaded", console.log('DOM HAS LOADED'))
-
-
 document.addEventListener("DOMContentLoaded", console.log('DOM HAS LOADED'))
+
+
+
+
+
+
+// STARTS HERE
+// Execution Context 
+// this = window
+// inner & outer function; inner fn uses scope chain for variable
+// Read ES5 & ES6 
+// ES5 : String, Array, Json, setter getter, reserve words as property name, object methods, bind.
+// ES6 : let const, arrow fn, spread operator, For/of, promises
+// Map => arr.map(fun) & Bind => fun.bind(obj) they are opposite to each other
+// map, filter, reduce, every, some, indexOf ||| call, apply, bind
+
+
+
+
+// Callback 
+/*
+Disadvantage
+    Callback Hell (Pyramid of Doom) -> function inside function. Hence Horizontal(diagonally) extension of code.
+        Disadvantage
+            Unreadable
+            UnMaintainable
+    Inversion of Control
+Advantage
+    readable
+    Maintainable
+*/
+
+// Promises
+/*
+Resolve || Reject
+.then().catch()
+*/
+/* Promise examples
+========Example 1 ==============
+console.log('start')
+const fn = () => (new Promise((resolve, reject) => {
+  console.log(1);
+  resolve('success')
+}))
+console.log('middle')
+fn().then(res => {
+  console.log(res)
+})
+console.log('end');
+====Output=======
+start
+middle
+1
+end
+success
+
+========Example 2 ==============
+console.log('start');
+const promise1 = new Promise((resolve, reject) => {
+    console.log(1)
+})
+promise1.then(res => {
+    console.log(2)
+})
+console.log('end');
+====Output=======
+start
+1
+end
+
+========Example 3 ==============
+console.log('start');
+const promise1 = new Promise((resolve, reject) => {
+    console.log(1)
+    resolve(2)
+    console.log(3)
+})
+promise1.then(res => {
+    console.log(res)
+})
+console.log('end');
+====Output=======
+start
+1
+3
+end
+2
+
+========Example 4 ==============
+console.log('start');
+const promise1 = new Promise((resolve, reject) => {
+  console.log(1)
+  resolve(2)
+})
+promise1.then(res => {
+  console.log(res)
+})
+console.log('end');
+====Output=======
+start
+1
+end
+2
+
+========Example 5 ==============
+console.log('start')
+const promise1 = new Promise((resolve, reject) => {
+  console.log(1)
+})
+console.log('end');
+====Output=======
+start
+1
+end
+
+========Example 6 ==============
+console.log('start')
+Promise.resolve(1).then((res) => {
+  console.log(res)
+})
+Promise.resolve(2).then((res) => {
+  console.log(res)
+})
+console.log('end');
+====Output=======
+start
+end
+1
+2
+========Example 7 ==============
+console.log('start')
+setTimeout(() => {
+  console.log('setTimeout')
+})
+Promise.resolve().then(() => {
+  console.log('resolve')
+})
+console.log('end')
+====Output=======
+start
+end
+resolve
+setTimeout
+========Example 8 ==============
+const promise = new Promise((resolve, reject) => {
+  console.log(1);
+  setTimeout(() => {
+    console.log("timerStart");
+    resolve("success");
+    console.log("timerEnd");
+  }, 0);
+  console.log(2);
+});
+promise.then((res) => {
+  console.log(res);
+});
+console.log(4);
+====Output=======
+1
+2
+4
+timerStart
+timerEnd
+success
+========Example 9 ==============
+const timer1 = setTimeout(() => {
+  console.log('timer1');
+  const promise1 = Promise.resolve().then(() => {
+    console.log('promise1')
+  })
+}, 0)
+const timer2 = setTimeout(() => {
+  console.log('timer2')
+}, 0)
+====Output=======
+timer1
+promise1
+timer2
+========Example 10 ==============
+console.log('start');
+const promise1 = Promise.resolve().then(() => {
+  console.log('promise1');
+  const timer2 = setTimeout(() => {
+    console.log('timer2')
+  }, 0)
+});
+const timer1 = setTimeout(() => {
+  console.log('timer1')
+  const promise2 = Promise.resolve().then(() => {
+    console.log('promise2')
+  })
+}, 0)
+console.log('end');
+====Output=======
+start
+end
+promise1
+timer1
+promise2
+timer2
+
+
+*/
