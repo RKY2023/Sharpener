@@ -76,17 +76,52 @@
                     .catch(err => console.log('something went wrong'));
             }
             function userListDOM(res){
-                var div = ''
+                userListElem = document.getElementById( 'userList' );
                 res.data.forEach(element => {
                     if(element.name!=undefined){
-                        div += '<li>';
-                            div +='<label class="card-title p-3 mb-0 bg-dark text-white">'+element.name+' - '+element.email+' - '+element.phoneNo+'</label>';
-                            div +='<button class="p-3 bg-success text-white">Edit</button>';
-                            div +='<button class="p-3 bg-danger text-white manga-rating">Delete</button>';
-                        div +='</li>';
+                        // div += '<li id="'+element._id+'">';
+                        //     div +='<label class="card-title p-3 mb-0 bg-dark text-white">'+element.name+' - '+element.email+' - '+element.phoneNo+'</label>';
+                        //     div +='<input type="button" class="p-3 bg-success text-white" name="eit" value="Edit" onclick="removeUser(this)">';
+                        //     div +='<input type="button" class="p-3 bg-danger text-white" name="sel" value="Delete" onclick="removeUser(this)">';
+                        // div +='</li>';
+                        blockElem = document.createElement( 'li' );
+                        blockElem.id = element._id;
+                        
+                        labelElem = document.createElement( 'label' );
+                        labelElem.className = 'card-title p-3 mb-0 bg-dark text-white';
+                        labelElem.innerHTML = element.name+' - '+element.email+' - '+element.phoneNo;
+                        inputElem1 = document.createElement( 'button' );
+                        inputElem1.className = 'p-3 bg-success text-white';
+                        inputElem1.innerHTML = 'edit';
+                        inputElem1.addEventListener('click', function t1() {
+                            removeUser(element._id)
+                        });
+                        inputElem2 = document.createElement( 'button' );
+                        inputElem2.className = 'p-3 bg-danger text-white';
+                        inputElem2.innerHTML = 'Delete';
+                        inputElem2.addEventListener('click',function t2() {
+                            removeUser(element._id)
+                        });
+
+                                                
+                        blockElem.appendChild( labelElem );
+                        blockElem.appendChild( inputElem1 );
+                        blockElem.appendChild( inputElem2 );
+                        userListElem.appendChild( blockElem );
                     }
                 });
-                document.getElementById("userList").setHTML(div);
+                var newElement = document.createElement("div");
+                newElement.innerHTML = div;
+                document.getElementById("userList").setHTML(newElement.innerHTML);
+            }
+            function removeUser(id){
+                axios
+                    .delete("https://crudcrud.com/api/1c7490df305e451fa99056bbc1274b7a/UserAppointmentDataSTR/"+id)
+                    .then(res => {
+                        console.log('User Deleted');
+                        userListDOM(res);
+                    })
+                    .catch(err => console.log('something went wrong'));
             }
         </script>
     </body>
