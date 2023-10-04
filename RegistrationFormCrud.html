@@ -40,7 +40,7 @@
                     
                 </form>
             </div>
-            
+            <ul id="userList"></ul>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
         <script>
@@ -48,6 +48,7 @@
             btn.addEventListener("click", function() {
                 upsertData();
             });
+            setTimeout(getUserList(), 2000);
             function upsertData(){
                 let uname = document.getElementById('uname').value;
                 let emailId = document.getElementById('emailId').value;
@@ -63,7 +64,30 @@
                         console.log('Data inserted')
                     })
                     .catch(err => console.log('something went wrong'));
+                getUserList();
             }     
+            function getUserList(){
+                axios
+                    .get("https://crudcrud.com/api/1c7490df305e451fa99056bbc1274b7a/UserAppointmentDataSTR")
+                    .then(res => {
+                        console.log('Data fetched');
+                        userListDOM(res);
+                    })
+                    .catch(err => console.log('something went wrong'));
+            }
+            function userListDOM(res){
+                var div = ''
+                res.data.forEach(element => {
+                    if(element.name!=undefined){
+                        div += '<li>';
+                            div +='<label class="card-title p-3 mb-0 bg-dark text-white">'+element.name+' - '+element.email+' - '+element.phoneNo+'</label>';
+                            div +='<button class="p-3 bg-success text-white">Edit</button>';
+                            div +='<button class="p-3 bg-danger text-white manga-rating">Delete</button>';
+                        div +='</li>';
+                    }
+                });
+                document.getElementById("userList").setHTML(div);
+            }
         </script>
     </body>
 </html>
