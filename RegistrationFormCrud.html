@@ -36,7 +36,7 @@
                     
                     
                     
-                    <input id="bookcall" class="btn btn-warning w-100 my-4" type="button" name="bookcall" value="GET A CALL" class="btn">
+                    <input id="bookcall" class="btn btn-warning w-100 my-4" type="button" name="bookcall" value="Submit">
                     
                 </form>
             </div>
@@ -44,6 +44,7 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
         <script>
+            var crudcrudBaseurl = 'https://crudcrud.com/api/0abeb82122064b759a5316c65aca6c1f/UserAppointmentDataSTR';
             btn = document.getElementById("bookcall");
             btn.addEventListener("click", function() {
                 upsertData();
@@ -58,17 +59,31 @@
                     'email': emailId,
                     'phoneNo': phno
                 }
-                axios
-                    .post("https://crudcrud.com/api/1c7490df305e451fa99056bbc1274b7a/UserAppointmentDataSTR",userData)
-                    .then(res => {
-                        console.log('Data inserted')
-                    })
-                    .catch(err => console.log('something went wrong'));
-                getUserList();
+                let btn = document.getElementById('bookcall');
+                if(btn.classList.contains('edit-btn')){
+                    axios
+                        .put(crudcrudBaseurl+'/'+btn.getAttribute('edit'),userData)
+                        .then(res => {
+                            console.log('Data updated')
+                            btn.removeAttribute('edit');
+                            btn.classList.remove('edit=btn');
+                            getUserList();
+                        })
+                        .catch(err => console.log('something went wrong'));
+                }else{
+                    axios
+                        .post(crudcrudBaseurl,userData)
+                        .then(res => {
+                            console.log('Data inserted')
+                            getUserList();
+                        })
+                        .catch(err => console.log('something went wrong'));
+                }
+                
             }     
             function getUserList(){
                 axios
-                    .get("https://crudcrud.com/api/1c7490df305e451fa99056bbc1274b7a/UserAppointmentDataSTR")
+                    .get(crudcrudBaseurl)
                     .then(res => {
                         console.log('Data fetched');
                         userListDOM(res);
@@ -77,6 +92,7 @@
             }
             function userListDOM(res){
                 userListElem = document.getElementById( 'userList' );
+                userListElem.innerHTML = '';
                 res.data.forEach(element => {
                     if(element.name!=undefined){
                         // div += '<li id="'+element._id+'">';
@@ -94,7 +110,7 @@
                         inputElem1.className = 'p-3 bg-success text-white';
                         inputElem1.innerHTML = 'edit';
                         inputElem1.addEventListener('click', function t1() {
-                            removeUser(element._id)
+                            editUser(element._id)
                         });
                         inputElem2 = document.createElement( 'button' );
                         inputElem2.className = 'p-3 bg-danger text-white';
@@ -116,14 +132,30 @@
             }
             function removeUser(id){
                 axios
-                    .delete("https://crudcrud.com/api/1c7490df305e451fa99056bbc1274b7a/UserAppointmentDataSTR/"+id)
+                    .delete(crudcrudBaseurl+'/'+id)
                     .then(res => {
                         console.log('User Deleted');
-                        userListDOM(res);
+                        getUserList();
                     })
                     .catch(err => console.log('something went wrong'));
-                getUserList();
+
             }
+            function editUser(id){
+                
+                axios
+                    .get(crudcrudBaseurl+'/'+id)
+                    .then(res => {
+                        console.log('User Detail fetched');
+                        document.getElementById('uname').value=res.data.name;
+                        document.getElementById('emailId').value=res.data.email;
+                        document.getElementById('phno').value=res.data.phoneNo;
+                        let btn = document.getElementById('bookcall');
+                        btn.setAttribute('edit',res.data._id);
+                        btn.classList.add('edit-btn');
+                    })
+                    .catch(err => console.log('something went wrong'));
+            }
+           
         </script>
     </body>
 </html>
