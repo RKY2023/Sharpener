@@ -323,7 +323,7 @@ Advantage
     Maintainable
 */
 
-// Promises
+// Promises was to replace callback hell ( when 1 function fails, leads to paradigm fail)
 /*
 Resolve || Reject
 .then().catch()
@@ -492,5 +492,12 @@ timer1
 promise2
 timer2
 
+
+*/
+// async await replaced Promises Hell ( resolve -> then -> console.log)
+/*
+// why await always inside async function ?
+// for sync execution of code in js
+// Always put async function in try catch block for error in reject case
 
 */

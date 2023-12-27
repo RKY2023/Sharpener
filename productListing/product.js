@@ -1,9 +1,10 @@
 var totalProductAmt = 0;
-var crudcrudBaseurl = 'https://crudcrud.com/api/852c99a5719c42fb8e6e503d2ea6bfe4/ProductDataSTR';
+var crudcrudBaseurl = 'https://crudcrud.com/api/0fc83f8c4d05474889f353ca74aecb0e/ProductDataSTR';
 btn = document.getElementById("product_adder");
 btn.addEventListener("click", function() {
     add_product();
 });
+var test = [];
 var product_id = localStorage.getItem("product_id");
 if(product_id == null) 
     product_id = 0;
@@ -18,8 +19,6 @@ function addHtml(data){
             div += '<li class="list-group-item d-flex justify-content-between align-items-start">';
                 div +='<div class="p-3 mb-0 bg-dark text-white name">'+product.name+'</div>';
                 div +='<div class="p-3 bg-light amount">'+product.amount+'</div>';
-                // div +='<div class="p-3 bg-info description">'+product.desc+'</div>';
-                // div +='<input type="button" id="product_edit_'+product._id+'" name="edit" onclick="edit_product('+product._id+')" value="Edit" class="btn btn-warning p-3 mb-2">';
                 div +='<input type="button" id="product_del_'+product._id+'" name="delete" onclick="del_product(\''+product._id+'\')" value="Delete" class="btn btn-danger p-3 mb-2 ">';                             
             div += '<li class="row">';
         div +='</ul>';
@@ -31,6 +30,23 @@ function addHtml(data){
     newElement.className = 'col';
     document.getElementById("data").innerHTML ='';
     document.getElementById("data").appendChild(newElement);
+    updateTotal();
+}
+function addItem(res){
+    var div = '';
+    product = res.data;
+    div += '<ul id="product'+product._id+'" class="list-group">';
+        div += '<li class="list-group-item d-flex justify-content-between align-items-start">';
+            div +='<div class="p-3 mb-0 bg-dark text-white name">'+product.name+'</div>';
+            div +='<div class="p-3 bg-light amount">'+product.amount+'</div>';
+            div +='<input type="button" id="product_del_'+product._id+'" name="delete" onclick="del_product(\''+product._id+'\')" value="Delete" class="btn btn-danger p-3 mb-2 ">';                             
+        div += '<li class="row">';
+    div +='</ul>';
+    var newElement = document.createElement("div");
+    newElement.innerHTML = div;
+    newElement.className = 'col';
+    document.getElementById("data").appendChild(newElement);
+    totalProductAmt += parseFloat(product.amount);
     updateTotal();
 }
 function updateTotal(){
@@ -56,18 +72,42 @@ function add_product(){
     }
     axios
         .post(crudcrudBaseurl,product)
-        .then( res => showOutput(res))
+        .then( res => {
+            appendItem(res);
+        })
         .catch( err => console.error(err));
-    fetchList();
 }
 function del_product(product_id){
-    let product_elem = document.getElementById('product'+product_id);
-    product_elem.parentNode.removeChild(product_elem);
     axios
     .delete(crudcrudBaseurl+'/'+product_id)
     .then( res => { 
-        console.log('deleted');
-        fetchList();
+        removeItem(res, product_id);
     })
     .catch( err => console.error(err));
 }
+function removeItem(res, product_id){
+    return new Promise( (resolve, reject) => {
+        setTimeout( () => {
+            console.log(res);
+            if(res.status >= 200 & res.status < 206){
+                let product_elem = document.getElementById('product'+product_id);
+                let amt  = product_elem.querySelector('.amount').innerHTML;
+                product_elem.parentNode.removeChild(product_elem);
+                totalProductAmt -= parseFloat(amt);
+                updateTotal();
+            }
+        }, 1000);
+    })
+    
+}
+function appendItem(res){
+    return new Promise( (resolve, reject) =>{
+        setTimeout( () => {
+            console.log(res);
+            if(res.status >= 200 & res.status < 206){
+                addItem(res);
+            }
+        },1000);
+    })
+} 
+  
