@@ -1,5 +1,5 @@
 var totalProductAmt = 0;
-var crudcrudBaseurl = 'https://crudcrud.com/api/77a0ccb926304555bf22ac5c9d237c54/ProductDataSTR';
+var crudcrudBaseurl = 'https://crudcrud.com/api/8f63c3bb85514dc18db3598e807ff243/ProductDataSTR';
 btn = document.getElementById("product_adder");
 btn.addEventListener("click", function() {
     add_product();
@@ -44,14 +44,15 @@ function addItem(res,type){
 function updateTotal(){
     document.getElementById("productTotalAmt").innerText = totalProductAmt;
 }
-function fetchList(){
-    axios.get(crudcrudBaseurl)
-    .then( res => {
-        console.log('Data fetched');
-        if(res.status == 200)
-            addItem(res,0);
-    })
-    .catch( err => console.error(err));
+async function fetchList(){
+    try{
+        let fetchLst = await axios.get(crudcrudBaseurl)
+        if(fetchLst.status == 200)
+            addItem(fetchLst,0);
+    }
+    catch( err) {
+        console.log(err);
+    };
 }
 async function add_product(){
     let product_name = document.getElementById('product_name').value;
@@ -62,58 +63,31 @@ async function add_product(){
         'amount': product_amt
     }
     try{
-        const addProd = await new Promise( (res,rej)=>{
-            axios.post(crudcrudBaseurl,product)
-            .then( res => {
-                appendItem(res);
-            })
-            .catch( err => console.error(err));
-            res('Product added.');
-            rej('Something went wrong');
-        })
+        let addProd = await axios.post(crudcrudBaseurl,product)
+        appendItem(addProd);
     }catch(err){
         console.log(err);
     }
-    
 }
 async function del_product(product_id){
     try{
-        const delProd = await new Promise( (res,rej) =>{
-            axios.delete(crudcrudBaseurl+'/'+product_id)
-            .then( res => { 
-                removeItem(res, product_id);
-            })
-            .catch( err => console.error(err));
-            res('Product deleted.');
-            rej('Something went wrong');
-        })
+        let res = await axios.delete(crudcrudBaseurl+'/'+product_id)
+        removeItem(res, product_id);
     }catch(err){
         console.log(err);
     }
-    
 }
 function removeItem(res, product_id){
-    return new Promise( (resolve, reject) => {
-        setTimeout( () => {
-            console.log(res);
-            if(res.status >= 200 & res.status < 206){
-                let product_elem = document.getElementById('product'+product_id);
-                let amt  = product_elem.querySelector('.amount').innerHTML;
-                product_elem.parentNode.removeChild(product_elem);
-                totalProductAmt -= parseFloat(amt);
-                updateTotal();
-            }
-        }, 1000);
-    })
-    
+    if(res.status >= 200 & res.status < 206){
+        let product_elem = document.getElementById('product'+product_id);
+        let amt  = product_elem.querySelector('.amount').innerHTML;
+        product_elem.parentNode.removeChild(product_elem);
+        totalProductAmt -= parseFloat(amt);
+        updateTotal();
+    }
 }
 function appendItem(res){
-    return new Promise( (resolve, reject) =>{
-        setTimeout( () => {
-            console.log(res);
-            if(res.status >= 200 & res.status < 206){
-                addItem(res,1);
-            }
-        },1000);
-    })
+    if(res.status >= 200 & res.status < 206){
+        addItem(res,1);
+    }
 } 

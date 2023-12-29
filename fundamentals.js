@@ -500,4 +500,33 @@ timer2
 // for sync execution of code in js
 // Always put async function in try catch block for error in reject case
 
+// hoisting 
+// the process whereby the interpreter appears to move the declaration of functions, variables, classes, or imports to the top of their scope, prior to execution of the code
+// OR
+// default behavior of moving all declarations to the top of the current scope
+// further terms 'temporal dead zone'
+
+// higher order function
+// Higher order functions are functions that take one or more functions as arguments, or return a function as their result.
+
+// Js
+// JS is a programming language of web. It is used to calculate, manupulate & validate data. It can update and change html & css.
+
+// JS runtime
+// JS Engine
+// Event Loop 
+// Execution Context (global & functional)
+// Call Stack 
+// Call Queue 
+// Microtask Queue
+// Web API's (DOM, ajax, Windows, document, fetch, Timer(setTimeout),  )
+
+
+// Scope (Block, function(local), GLobal)
+
+// Strict Mode
+//
+
+// 'this' Keyword
+// Arrow function
 */
