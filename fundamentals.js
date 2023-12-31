@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", console.log('DOM HAS LOADED'))
 // ES5 : String, Array, Json, setter getter, reserve words as property name, object methods, bind.
 // ES6 : let const, arrow fn, spread operator, For/of, promises
 // Map => arr.map(fun) & Bind => fun.bind(obj) they are opposite to each other
-// map, filter, reduce, every, some, indexOf ||| call, apply, bind
+// map, filter, reduce, sort, every, some, indexOf ||| call, apply, bind
 
 
 
@@ -511,12 +511,13 @@ timer2
 
 // Js
 // JS is a programming language of web. It is used to calculate, manupulate & validate data. It can update and change html & css.
+// JS is a synchronous(Event Loop) & single threaded, but microtask runs in async manner.which makes code run in async.
 
 // JS runtime
 // JS Engine
 // Event Loop 
-// Execution Context (global & functional)
-// Call Stack 
+// Execution Context (global & functional) in Phasses (ph 1 = var load undefined, ph 2 = Hoisting & initialize)
+// Call Stack (aka EC stack, Program stack, control stack, Runtime stack, Machine stack)
 // Call Queue 
 // Microtask Queue
 // Web API's (DOM, ajax, Windows, document, fetch, Timer(setTimeout),  )
@@ -529,4 +530,6 @@ timer2
 
 // 'this' Keyword
 // Arrow function
+
+// Oprator rest & spread operator (...)
 */
