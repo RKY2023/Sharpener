@@ -5,7 +5,14 @@ import './ExpenseItem.css';
 
 
 function ExpenseItem(props){
-    // const LocationOfExpenditure = 'manhattan';
+    const deleteExpense = () => {
+        console.log('CLick!!');
+        // let amt  = this.querySelector('.amount').innerHTML;
+        // let amt  = this.innerHTML;
+        // var tt = amt;
+        // console.log(amt);
+        // // this.parentNode.removeChild(product_elem);
+    }
 
     // return <h2>Expense item 1</h2>
     return (
@@ -15,8 +22,8 @@ function ExpenseItem(props){
                 <h2>{props.title}
                 <div className='expense-item__description'>{props.LocationOfExpenditure}</div>
                 </h2>
-                
                 <div className='expense-item__price'>${props.amount}</div>    
+                <button onClick={deleteExpense}> delete</button>
             </div>
         </Card>
     );
