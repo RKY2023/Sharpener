@@ -4,7 +4,7 @@ import './ExpenseItem.css';
 
 
 function ExpenseItem(props){
-    const LocationOfExpenditure = 'manhattan';
+    // const LocationOfExpenditure = 'manhattan';
 
     // return <h2>Expense item 1</h2>
     return (
@@ -12,7 +12,7 @@ function ExpenseItem(props){
             <ExpenseDate date={props.date} />
             <div className='expense-item__description'>
                 <h2>{props.title}
-                <div className='expense-item__description'>{LocationOfExpenditure}</div>
+                <div className='expense-item__description'>{props.LocationOfExpenditure}</div>
                 </h2>
                 
                 <div className='expense-item__price'>${props.amount}</div>    
