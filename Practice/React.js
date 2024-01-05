@@ -2,6 +2,7 @@
 // components
 // custom html elements
 // index.js -> App.js -> Components(js, css) folders
+// useState()
 
 
 
@@ -77,4 +78,7 @@ console.log(studentArr[0].age);
 */
 
 
- 
+ /*
+ // QA
+why js is not allowed in REact. eg. innerHtml changes?
+ */
