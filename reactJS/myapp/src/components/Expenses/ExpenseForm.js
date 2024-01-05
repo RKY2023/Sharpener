@@ -7,6 +7,7 @@ import ExpenseDate from "./ExpenseDate";
 const ExpenseForm = (props) => {
     const [title, setTitle] = useState('');
     const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState(0);
     const getTitle = () => {
         let title_val = document.getElementById('titleVal').value;
         setTitle(title_val)
