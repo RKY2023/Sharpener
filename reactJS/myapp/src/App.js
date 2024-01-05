@@ -1,7 +1,9 @@
 import React from "react";
 
-import Expenses from "./components/Expenses/Expenses";
-import './components/Expenses/Expenses.css';
+// import Expenses from "./components/Expenses/Expenses";
+// import './components/Expenses/Expenses.css';
+import ExpenseForm from "./components/Expenses/ExpenseForm";
+import './components/Expenses/ExpenseForm.css';
 
 function App() {
   const expenses = [
@@ -23,7 +25,8 @@ function App() {
   return (
     <div>
       <h2>Lets's go</h2>
-      <Expenses items={expenses}/>
+      {/* <Expenses items={expenses}/> */}
+      <ExpenseForm/>
     </div>
   );
 }

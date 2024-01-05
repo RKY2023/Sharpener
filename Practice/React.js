@@ -2,9 +2,14 @@
 // components
 // custom html elements
 // index.js -> App.js -> Components(js, css) folders
+
 // useState()
-
-
+// 2 way binding gathering input in form submission (useState & input.value)
+// gathering data 3 ways
+  1)useState
+  2)...oldData,
+  enteredTitle : title,
+  3) return
 
 */
 
@@ -81,4 +86,6 @@ console.log(studentArr[0].age);
  /*
  // QA
 why js is not allowed in REact. eg. innerHtml changes?
+
+
  */
