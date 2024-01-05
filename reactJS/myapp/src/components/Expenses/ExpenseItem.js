@@ -8,7 +8,7 @@ import './ExpenseItem.css';
 const ExpenseItem = (props) => {
     // special fn only called here
     const [title, setTitle] = useState(props.title);
-    let [amount, setAmount] = useState(props.amount);
+    const [amount, setAmount] = useState(props.amount);
     // console.log(ss);
 
     const deleteExpense = () => {

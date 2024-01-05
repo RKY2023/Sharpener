@@ -1,11 +1,9 @@
 import React from "react";
 
-// import Expenses from "./components/Expenses/Expenses";
-// import './components/Expenses/Expenses.css';
-import ExpenseForm from "./components/Expenses/ExpenseForm";
-import './components/Expenses/ExpenseForm.css';
+import Expenses from "./components/Expenses";
+import NewExpense from "./components/NewExpense";
 
-function App() {
+const App = () => {
   const expenses = [
     {
       id: "e1",
@@ -24,9 +22,8 @@ function App() {
   ];
   return (
     <div>
-      <h2>Lets's go</h2>
-      {/* <Expenses items={expenses}/> */}
-      <ExpenseForm/>
+      <NewExpense/>
+      <Expenses items={expenses} />
     </div>
   );
 }
