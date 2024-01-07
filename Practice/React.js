@@ -2,6 +2,9 @@
 // components
 // custom html elements
 // index.js -> App.js -> Components(js, css) folders
+// controlled vs uncontrolled component
+stateful 
+stateless /presentational / dump component
 
 // useState()
 // 2 way binding gathering input in form submission (useState & input.value)

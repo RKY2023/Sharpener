@@ -1,10 +1,10 @@
 import React from "react";
 
-import Expenses from "./components/Expenses";
-import NewExpense from "./components/NewExpense";
+import Expenses from "./components/Expenses/Expenses";
+import NewExpense from "./components/NewExpense/NewExpense";
 
 const App = () => {
-  const expenses = [
+  let expenses = [
     {
       id: "e1",
       title: "Toilet ",
@@ -20,9 +20,17 @@ const App = () => {
       location : 'Manhatttan',
     },
   ];
+
+  const addExpenseHandler = expense => {
+    console.log('in app.js');
+    
+    expenses = [...expenses, expense];
+    console.log(expenses);
+  }
+
   return (
     <div>
-      <NewExpense/>
+      <NewExpense onAddExpense={addExpenseHandler}/>
       <Expenses items={expenses} />
     </div>
   );
