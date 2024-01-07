@@ -36,16 +36,18 @@ const ExpenseItem = (props) => {
 
     // return <h2>Expense item 1</h2>
     return (
-        <Card className='expense-item'>
-            <ExpenseDate date={props.date} />
-            <div className='expense-item__description'>
-                <h2>{title}</h2>
-                <div className='expense-item__description'>{props.LocationOfExpenditure}</div>
-                <div className='expense-item__price'>${amount}</div>    
-                <button onClick={deleteExpense}> delete</button>
-            </div>
-            <button onClick={clickHandler3}>Change title</button>
-        </Card>
+        <li>
+            <Card className='expense-item'>
+                <ExpenseDate date={props.date} />
+                <div className='expense-item__description'>
+                    <h2>{title}</h2>
+                    <div className='expense-item__description'>{props.LocationOfExpenditure}</div>
+                    <div className='expense-item__price'>${amount}</div>    
+                    <button onClick={deleteExpense}> delete</button>
+                </div>
+                <button onClick={clickHandler3}>Change title</button>
+            </Card>
+        </li>
     );
 }
 
