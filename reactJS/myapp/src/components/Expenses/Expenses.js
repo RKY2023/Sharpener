@@ -6,34 +6,35 @@ import ExpenseFilter from './ExpenseFilter';
 import './Expenses.css';
 
 const Expenses = (props) => {
-  const [filterYear, setFilterYear] = useState('2024');
+  const [filterYear, setFilterYear] = useState('');
 
   const filterChangeHandler = (selectedYear) => {
     setFilterYear(selectedYear);
     console.log(selectedYear);
   }
 
+  let proper;
+  if(filterYear === '' )
+    proper = props.items;
+  else proper = props.items.filter( expense => (expense.date.getFullYear() == filterYear));
+
+
   return (
     <Card className="expenses">
-      <ExpenseFilter selected={filterYear} onChangeFilter={filterChangeHandler}/>
+      <ExpenseFilter 
+        selected={filterYear} 
+        onChangeFilter={filterChangeHandler}
+      />
+
+      
+      {proper.map( (expense) => (
         <ExpenseItem
-        title={props.items[0].title}
-        amount={props.items[0].amount}
-        date={props.items[0].date}
-        LocationOfExpenditure={props.items[0].location}
+          key={expense.id}
+          title={expense.title}
+          amount={expense.amount}
+          date={expense.date}
         />
-        <ExpenseItem
-        title={props.items[1].title}
-        amount={props.items[1].amount}
-        date={props.items[1].date}
-        LocationOfExpenditure={props.items[1].location}
-        />
-        <ExpenseItem
-        title={props.items[1].title}
-        amount={props.items[1].amount}
-        date={props.items[1].date}
-        LocationOfExpenditure={props.items[1].location}
-        />
+      ))}
     </Card>
   );
 }
