@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
+import Users from './components/Users/Users';
 import './App.css';
 
 const App = () => {
@@ -35,6 +36,12 @@ const App = () => {
     );
   }
 
+  return (
+    <div>
+      <h2> hoho</h2>
+      <Users/>
+    </div>
+  );
   return (
     <div>
       <section id="goal-form">
