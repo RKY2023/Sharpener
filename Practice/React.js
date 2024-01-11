@@ -1,4 +1,6 @@
 /*
+// installing npm in project folder
+
 // components
 // custom html elements
 // index.js -> App.js -> Components(js, css) folders
