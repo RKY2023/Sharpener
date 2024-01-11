@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 // import "./UserForm.css";
 import Button from "../UI/Button";
@@ -7,28 +7,33 @@ import Card from "../UI/Card";
 import ErrorModal from "../UI/ErrorModal";
 
 const UserForm = (props) => {
-  const [enteredUserName, setUserName] = useState("");
-  const [enteredUserAge, setUserAge] = useState("");
-  const [error, setError] = useState();
+//   const [enteredUserName, setUserName] = useState("");
+//   const [enteredUserAge, setUserAge] = useState("");
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+  const collegeNameInputRef = useRef();
+  const [error, setError] = useState(null);
 
-  const userNameChangeHandler = (event) => {
-    setUserName(event.target.value);
-    // setIsValid(true);
-  };
+//   const userNameChangeHandler = (event) => {
+//     setUserName(event.target.value);
+//   };
 
-  const userAgeChangeHandler = (event) => {
-    setUserAge(event.target.value);
-    // setIsValid(true);
-  };
+//   const userAgeChangeHandler = (event) => {
+//     setUserAge(event.target.value);
+//   };
   const onConfirmHandler = () => {
     setError(null);
   };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    const enteredName = nameInputRef.current.value;
+    const enteredAge = ageInputRef.current.value;
+    const enteredCollegeName = collegeNameInputRef.current.value;
+
     if (
-      enteredUserName.trim().length === 0 ||
-      enteredUserAge.trim().length === 0
+        enteredName.trim().length === 0 ||
+        enteredAge.trim().length === 0
     ) {
       setError({
         title: "Invalid Input",
@@ -36,7 +41,7 @@ const UserForm = (props) => {
       });
       return;
     }
-    if (+enteredUserAge < 1) {
+    if (+enteredAge < 1) {
       setError({
         title: "Invalid age",
         message: "Please enter a valid age (> 0).",
@@ -45,14 +50,18 @@ const UserForm = (props) => {
     }
 
     const tt = {
-      name: enteredUserName,
+      name: enteredName,
       id: Math.random().toString(),
-      age: parseInt(enteredUserAge),
+      age: parseInt(enteredAge),
+      collegeName: enteredCollegeName,
     };
 
     props.onAddUser(tt);
-    setUserName("");
-    setUserAge("");
+    // setUserName("");
+    // setUserAge("");
+    nameInputRef.current.value = '';
+    ageInputRef.current.value = '';
+    collegeNameInputRef.current.value = '';
   };
   return (
     <>
@@ -70,8 +79,7 @@ const UserForm = (props) => {
             <input
               id="username"
               type="text"
-              value={enteredUserName}
-              onChange={userNameChangeHandler}
+              ref={nameInputRef}
             ></input>
           </div>
           <div className="">
@@ -79,8 +87,15 @@ const UserForm = (props) => {
             <input
               id="age"
               type="number"
-              value={enteredUserAge}
-              onChange={userAgeChangeHandler}
+              ref={ageInputRef}
+            ></input>
+          </div>
+          <div className="">
+            <label htmlFor="collegeName">College Name</label>
+            <input
+              id="collegeName"
+              type="text"
+              ref={collegeNameInputRef}
             ></input>
           </div>
           <Button type="submit"> Add User</Button>

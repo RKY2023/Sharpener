@@ -15,11 +15,13 @@ const Users = (props) => {
             id: '1',
             name: 'gover dhan bnabu',
             age: 23,
+            collegeName: 'XYZ'
         },
         {
             id: '2',
             name: 'tatya bichuu',
             age: 56,
+            collegeName: 'ABC'
         }
     ]);
 
