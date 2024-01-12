@@ -15,6 +15,13 @@ const Login = (props) => {
   // collegeName
 
   useEffect(() => {
+    console.log('EFFECT RUNNING');
+    return () => {
+      console.log('EFFECT CLEANUP');
+    }
+  }, [enteredPassword])
+  
+  useEffect(() => {
 
     const timeout1 = setTimeout( () => {
       console.log('Checking form validity');
