@@ -42,6 +42,19 @@ stateless /presentational / dump component
 */
 
 /*
+// Advance react 
+================
+// side effects => state & effect = side effect of function .
+//  eg. entering email,search product using api calls
+// store date in browser, send http req, (set & Manage timers)
+// outside normal function => useEffect
+useEffect(function, [dependencies])
+
+
+
+*/
+
+/*
 ========Example 1 ==============
 const student1 = {
     name : 'Yash',
