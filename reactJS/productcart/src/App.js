@@ -62,11 +62,18 @@ const App = (props) => {
     })
   };
 
+  const deleteProductHandler = productId => {
+    setProductData(prevProducts => {
+      const newProductData = prevProducts.filter(product => product.id !== productId);
+      return newProductData;
+    });
+  };
+
 
   return (
     <div className="App">
       <ProductForm onSaveProduct={onSaveProductHandler}/>
-      <ProductList items={productData}></ProductList>
+      <ProductList items={productData} onDeleteProd={deleteProductHandler}></ProductList>
     </div>
   );
 }

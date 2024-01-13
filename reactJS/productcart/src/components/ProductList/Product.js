@@ -4,7 +4,7 @@ const Product = (props) => {
     const product= props.items.map((product) => (
         <div >
             <div>{product.price} - {product.category} - {product.name} </div>
-            <button type="submit">Delete</button>
+            <button type="submit"  onClick={props.onDeleteProd}>Delete</button>
         </div>
     ));
 

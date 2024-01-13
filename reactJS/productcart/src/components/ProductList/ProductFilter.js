@@ -9,7 +9,7 @@ const ProductFilter = (props) => {
     });
     
     return (
-       <Product items={products} />
+       <Product items={products} onDeleteProd={props.onDeleteProd} />
     )
 } 
 

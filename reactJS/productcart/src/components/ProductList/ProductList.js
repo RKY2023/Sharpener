@@ -10,7 +10,7 @@ const ProductList = (props) => {
                 <h2>Products</h2>
                 </div>
                 <div className='products'>
-                <ProductCategory tt={props.items}></ProductCategory>
+                <ProductCategory tt={props.items} onDeleteProd={props.onDeleteProd}></ProductCategory>
                 </div>
             </div>
         </>

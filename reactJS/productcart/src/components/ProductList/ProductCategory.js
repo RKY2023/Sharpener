@@ -23,7 +23,7 @@ const ProductCategory = (props) => {
             <h3>{category.categoryType} Items</h3>
             <ul className='product-list'>
                 <li>
-                    <ProductFilter items={props.tt} type={category.categoryType}></ProductFilter>
+                    <ProductFilter items={props.tt} type={category.categoryType} onDeleteProd={props.onDeleteProd}></ProductFilter>
                 </li>
             </ul>
         </div>
