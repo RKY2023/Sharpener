@@ -1,27 +1,28 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState, useReducer, useContext } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import AuthContext from "../store/auth-context";
 
 const emailReducer = (state, action) => {
-  if(action.type === 'USER_INPUT'){
-    return { value: action.val, inValid: action.val.includes('@') };  
+  if (action.type === "USER_INPUT") {
+    return { value: action.val, inValid: action.val.includes("@") };
   }
-  if( action.type === 'INPUT_BLUR'){
-    return { value: state.value, isValid: state.value.includes('@') };
+  if (action.type === "INPUT_BLUR") {
+    return { value: state.value, isValid: state.value.includes("@") };
   }
-  return { value: '', inValid: false };
+  return { value: "", inValid: false };
 };
 
 const passwordReducer = (state, action) => {
-  if(action.type === 'USER_INPUT'){
-    return { value: action.val, inValid: action.val.trim().length > 6 };  
+  if (action.type === "USER_INPUT") {
+    return { value: action.val, inValid: action.val.trim().length > 6 };
   }
-  if( action.type === 'INPUT_BLUR'){
+  if (action.type === "INPUT_BLUR") {
     return { value: state.value, isValid: state.value.trim().length > 6 };
   }
-  return { value: '', inValid: false };
+  return { value: "", inValid: false };
 };
 
 const Login = (props) => {
@@ -35,27 +36,29 @@ const Login = (props) => {
   // collegeName
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
-    value: '',
+    value: "",
     isValid: null,
   });
 
   const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
-    value: '',
+    value: "",
     isValid: null,
   });
 
+  const authCtx = useContext(AuthContext);
+
   useEffect(() => {
-    console.log('EFFECT RUNNING');
+    console.log("EFFECT RUNNING");
     return () => {
-      console.log('EFFECT CLEANUP');
-    }
-  }, [emailState.value])
+      console.log("EFFECT CLEANUP");
+    };
+  }, [emailState.value]);
 
   const { isValid: emailIsValid } = emailState;
   const { isValid: passwordIsValid } = passwordState;
   useEffect(() => {
-    const timeout1 = setTimeout( () => {
-      console.log('Checking form validity');
+    const timeout1 = setTimeout(() => {
+      console.log("Checking form validity");
       setFormIsValid(
         emailIsValid && passwordIsValid && enteredCollegeName.trim().length > 0
       );
@@ -63,7 +66,7 @@ const Login = (props) => {
     // Cleanup function
     // return () => {};
     return () => {
-      console.log('CLEANUP');
+      console.log("CLEANUP");
       clearTimeout(timeout1);
     };
     // return clearTimeout();
@@ -71,11 +74,11 @@ const Login = (props) => {
 
   const emailChangeHandler = (event) => {
     // setEnteredEmail(event.target.value);
-    dispatchEmail({type: 'USER_INPUT', val:event.target.value});
+    dispatchEmail({ type: "USER_INPUT", val: event.target.value });
   };
 
   const passwordChangeHandler = (event) => {
-    dispatchPassword({type: 'USER_INPUT', val: event.target.value})
+    dispatchPassword({ type: "USER_INPUT", val: event.target.value });
   };
 
   const collegeNameChangeHandler = (event) => {
@@ -89,11 +92,11 @@ const Login = (props) => {
   };
 
   const validateEmailHandler = () => {
-    dispatchEmail({type: 'INPUT_BLUR'});
+    dispatchEmail({ type: "INPUT_BLUR" });
   };
 
   const validatePasswordHandler = () => {
-    dispatchPassword({type: 'INPUT_BLUR'});
+    dispatchPassword({ type: "INPUT_BLUR" });
   };
 
   const validateCollegeNameHandler = () => {
@@ -102,7 +105,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value, enteredCollegeName);
+    authCtx.onLogin(emailState.value, passwordState.value, enteredCollegeName);
   };
 
   return (

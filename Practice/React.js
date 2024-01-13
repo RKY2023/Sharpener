@@ -50,6 +50,8 @@ stateless /presentational / dump component
 // outside normal function => useEffect
 useEffect(function, [dependencies])
 
+useContext vs props chain 
+useContext Advantage ==> data to (lots of)/(specific)/all component
 
 
 */
