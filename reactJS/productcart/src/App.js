@@ -60,6 +60,7 @@ const App = (props) => {
     setProductData(prevProducts => {
       return [product, ...prevProducts]
     })
+    localStorage.setItem(product.id,JSON.stringify(product));
   };
 
   const deleteProductHandler = productId => {
@@ -67,6 +68,7 @@ const App = (props) => {
       const newProductData = prevProducts.filter(product => product.id !== productId);
       return newProductData;
     });
+    localStorage.removeItem(productId);
   };
 
 
