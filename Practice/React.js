@@ -53,6 +53,15 @@ useEffect(function, [dependencies])
 useContext vs props chain 
 useContext Advantage ==> data to (lots of)/(specific)/all component
 
+What is Hook ?
+Hooks allow function components to have access to state and other React features
+What is useState ?
+React Hook that lets you add a state variable to your component
+What is useReducer ?
+What is useState ?
+What is useState ?
+What is useState ?
+
 
 */
 

@@ -21,11 +21,9 @@ const ProductCategory = (props) => {
     const productCategoryListing = productCategoryType.map((category) => (
         <div key={category.id}>
             <h3>{category.categoryType} Items</h3>
-            <ul className='product-list'>
-                <li>
-                    <ProductFilter items={props.tt} type={category.categoryType} onDeleteProd={props.onDeleteProd}></ProductFilter>
-                </li>
-            </ul>
+            <div className='product-list'>
+                <ProductFilter items={props.tt} type={category.categoryType} onDeleteProd={props.onDeleteProd} />
+            </div>
         </div>
     ));
 

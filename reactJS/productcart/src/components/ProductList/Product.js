@@ -1,5 +1,7 @@
 import React from "react";
 
+import './Product.css';
+
 const Product = (props) => {
     const productRemoveHandler = (event) => {
         let removePRoductId = event.target.parentNode.getAttribute('data-key');
@@ -7,13 +9,15 @@ const Product = (props) => {
     }
 
     const product= props.items.map((product) => (
-        <div key={product.id} data-key={product.id}>
-            <div>{product.price} - {product.category} - {product.name} </div>
-            <button type="submit" onClick={productRemoveHandler}>Delete</button>
-        </div>
+        <li key={product.id} data-key={product.id}>
+            <div>
+                <div>{product.price} - {product.category} - {product.name} </div>
+                <button type="submit" onClick={productRemoveHandler}>Delete</button>
+            </div>
+        </li>
     ));
 
-    return product;
+    return (<ul>{product}</ul>);
 };
 
 export default Product;

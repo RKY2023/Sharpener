@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import './ProductForm.css';
+
 const ProductForm = (props) => {
   const [productId, setProductId] = useState('');
   const [productName, setProductName] = useState('');
