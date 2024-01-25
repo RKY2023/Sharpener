@@ -2,3 +2,14 @@ li div{
     display: flex;
     margin: .1em;
 }
+button {
+    margin: .2em .2em .2em 2em ;
+    color: black;
+    background-color: yellow;
+    border-radius: .2em;
+}
+button.btn-delete{
+    margin: .2em .2em .2em 2em ;
+    color: white;
+    background-color: maroon;
+}

@@ -1,5 +1,9 @@
 /*
 // installing npm in project folder
+pass items using props
+js expression {}
+jsx elements
+
 
 // components
 // custom html elements
@@ -10,6 +14,7 @@ stateless /presentational / dump component
 
 // useState()
 // 2 way binding gathering input in form submission (useState & input.value)
+value and trigger a re-render.
 // gathering data 3 ways
   1)useState
   2)...oldData,

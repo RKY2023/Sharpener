@@ -4,7 +4,7 @@ import './Product.css';
 
 const Product = (props) => {
     const productRemoveHandler = (event) => {
-        let removePRoductId = event.target.parentNode.getAttribute('data-key');
+        let removePRoductId = event.target.parentNode.parentNode.getAttribute('data-key');
         props.onDeleteProd(removePRoductId);        
     }
 
@@ -12,7 +12,7 @@ const Product = (props) => {
         <li key={product.id} data-key={product.id}>
             <div>
                 <div>{product.price} - {product.category} - {product.name} </div>
-                <button type="submit" onClick={productRemoveHandler}>Delete</button>
+                <button className="btn-delete" type="submit" onClick={productRemoveHandler}>Delete</button>
             </div>
         </li>
     ));
