@@ -34,7 +34,7 @@ const ProductForm = (props) => {
     setProductId('');
     setProductName('');
     setProductPrice('');
-    setProductCategory("Electronic");
+    setProductCategory(productCategory);
   };
 
   return (
