@@ -11,7 +11,7 @@ const Cart = props => {
                 price: 12.99,
             }].map((item) => (
                 <li>{item.name}</li>
-            ))}
+            ))}ss
         </ul>
     );
 
