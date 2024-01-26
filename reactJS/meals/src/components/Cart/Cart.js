@@ -15,9 +15,8 @@ const Cart = props => {
         </ul>
     );
 
-
     return (
-        <Modal onClick={props.onHideCart}>
+        <Modal onHideCart={props.onHideCart}>
             {cartItems}
             <div className={classes.total}>
                 <span>Total Amount</span>
