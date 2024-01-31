@@ -1,24 +1,36 @@
 import Input from "../../UI/Input";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from './MealItemForm.module.css';
+import CartContext from "../../../store/cart-context";
 
-const MealItemForm = props =>{
+const MealItemForm = (props) =>{
+    // console.log(props.item);
     const [mealAmount, setMealAmount] = useState(1);
+    const cartCxt = useContext(CartContext) ;
 
-    const onSubmitMealAmount = (event) => {
+    const addItemToCart =  (event) =>{
         event.preventDefault();
-        setMealAmount(++mealAmount);
+        // update cart items
+        // cartCxt.items.push(props.item);
+        const quantity = document.getElementById('amount_' + props.id).value;
+
+        cartCxt.addItem({...props.item, quantity: quantity});
+        // setMealAmount(++mealAmount);
+        console.log(cartCxt);
     }
 
     return (
-        <form onSubmit={onSubmitMealAmount} className={classes.form}>
+        <form onSubmit={addItemToCart} className={classes.form}>
+            {/* {console.log(
+                cartCxt.items
+            )} */}
             <Input label="Amount" input={{
-                id: 'amount', 
+                id: 'amount_'+props.id, 
                 type: 'number',
-                min: '1',
+                min: '0',
                 max: '5',
                 step: '1',
-                defaultValue: '1',
+                defaultValue: '0',
             }}
             />
             <button>+ Add</button>
