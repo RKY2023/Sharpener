@@ -1,0 +1,13 @@
+form {
+    font-weight: 200px;
+}
+div {
+    display: flex;
+    flex-wrap: wrap;
+}
+label {
+    padding: 0 2rem;
+}
+button {
+    font-size: 1.25rem;
+}

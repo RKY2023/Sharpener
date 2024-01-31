@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
 import './App.css';
+import MedicineForm from './component/MedicineForm/MedicineForm';
+import MedicineList from './component/MedicineList/MedicineList';
+import MedicineCartList from './component/MedicineCart/MedicineCartList';
+import MedicineProvider from "./store/MedicineProvider";
 
 function App() {
+  const [modalIsShown, setModalIsShown] = useState(false);
+
+  const showModalHandler = () => {
+    setModalIsShown(true);
+    console.log('modal open')
+  }
+
+  const hideModalHandler = () => {
+    setModalIsShown(false);
+    console.log('modal close')
+  }
+
   return (
+    <MedicineProvider>
+    {modalIsShown && <MedicineCartList onHide={hideModalHandler}/>}
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MedicineForm onShowModal={showModalHandler} onHide={hideModalHandler}/>
+      <MedicineList />
     </div>
+    </MedicineProvider>
   );
 }
 
