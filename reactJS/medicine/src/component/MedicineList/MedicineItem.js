@@ -6,24 +6,26 @@ const MedicineItem = (props) => {
     const medicineListCtx = useContext(MedicineContext);
     const [billBtnisDisabled, setBillBtnDisabled] = useState(false);
     const [qtyVal, setQtyVal] = useState('1');
+    const [id, setId] = useState(props.item.id);
+    const [name, setName] = useState(props.item.name);
+    const [desc, setDesc] = useState(props.item.desc);
+    const [price, setPrice] = useState(props.item.price);
     const [quantity, setQuantity] = useState(props.item.qty);
     
-
+    const keyId='key_'+id;
     const disabledAtrr = (billBtnisDisabled ? 'disabled':'');
-    const inputId = 'item_'+props.item.id;
+    const inputId = 'item_'+id;
 
     const addBillHandler = () => {
-
-        const inpQty = document.getElementById(inputId).value;
-
-        const cartNewItem =  {...props.item, qty:inpQty};
-        const newItem =  {...props.item, qty:quantity};
-        medicineListCtx.addItemToCart(cartNewItem);
+        qtyChanger(qtyVal);
+        const cartNewItem =  {...props.item, qty:qtyVal};
+        // const newItem =  {...props.item, qty:quantity};
+        console.log('add to cart',cartNewItem);
+        props.addItemToCart(cartNewItem);
     }
 
-    const onQtyChange = (event) =>{
+    const qtyChanger = (billQty) => {
         const stockQty = isNaN(quantity) ? 0: quantity;
-        const billQty = Number(event.target.value);
         setQtyVal(billQty);
         if(props.item.qty >= billQty){
             setBillBtnDisabled(false);
@@ -32,18 +34,29 @@ const MedicineItem = (props) => {
         else {
             setBillBtnDisabled(true);
             setQuantity('Out of Stock');
+            return;
         }
-            
+        setName(name);
+        setDesc(desc);
+        setPrice(price);
+        setId(id);
     }
 
-    
+    const onQtyChange = (event) =>{
+        const billQty = Number(event.target.value);
+        setQtyVal(billQty);
+        qtyChanger(billQty);
+    }
+
+
 
     return (
-        <li>
+        <>
+        <li key={keyId} className={Classes.li4}>
             <div className={Classes.text1}>
-                <label>{props.item.name}</label>
-                <label>{props.item.desc}</label>
-                <label >{props.item.price}</label>
+                <label>{name}</label>
+                <label>{desc}</label>
+                <label >{price}</label>
                 <label>{quantity}</label>
             </div>
             <div>
@@ -52,6 +65,7 @@ const MedicineItem = (props) => {
                 <button onClick={addBillHandler} disabled={disabledAtrr}>Add to bill</button>
             </div>
         </li>
+        </>
     )
 }
 

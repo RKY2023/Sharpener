@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 // import Input from "../UI/Input";
 import classes from "./MedicineForm.module.css";
-import MedicineCart from "../MedicineCart/MedicineCart";
 import MedicineContext from "../../store/MedicineContext";
 
 const MedicineForm = (props) => {
@@ -47,7 +46,7 @@ const MedicineForm = (props) => {
 
     return (
         <>
-        <form onSubmit={onSubmitHandler}>
+        <form onSubmit={onSubmitHandler} className={classes.form1}>
             <div>
                 <label>Medicine Name</label>
                 <input type="text" onChange={nameChangeHandler} value={name}/>
@@ -66,7 +65,7 @@ const MedicineForm = (props) => {
             </div>
             <button>Add</button>
         </form>
-        <MedicineCart onShowModal={props.onShowModal}/>
+
         </>
     )
 }

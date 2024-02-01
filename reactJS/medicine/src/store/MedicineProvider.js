@@ -20,7 +20,7 @@ const MedicineProvider = (props) => {
         if(checkItemOnCart.length == 0)
             setCartItems([...cartItems, cartItem]);
         else {
-            const oldCartItems = items.filter( (item) => {
+            const oldCartItems = cartItems.filter( (item) => {
                 return item.id != itemId;
             })
             const newCartQty = Number(checkItemOnCart[0].qty) + Number(cartItem.qty);

@@ -8,11 +8,11 @@ const MedicineList = (props) => {
     // console.log('list',medicineListCtx);
 
     const medicineItemDiv = medicineListCtx.items.map(element => (
-        <MedicineItem  key={element.id} item={element} />
+        <MedicineItem item={element} addItemToCart={medicineListCtx.addItemToCart}/>
     ));
 
     return (
-        <ul>
+        <ul className="margin: 1rem auto">
             {medicineItemDiv}
         </ul>
     )

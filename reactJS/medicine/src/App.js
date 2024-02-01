@@ -4,6 +4,7 @@ import MedicineForm from './component/MedicineForm/MedicineForm';
 import MedicineList from './component/MedicineList/MedicineList';
 import MedicineCartList from './component/MedicineCart/MedicineCartList';
 import MedicineProvider from "./store/MedicineProvider";
+import Header from "./component/Layout/Header";
 
 const App = (props) => {
   const [modalIsShown, setModalIsShown] = useState(false);
@@ -21,8 +22,9 @@ const App = (props) => {
   return (
     <MedicineProvider>
     {modalIsShown && <MedicineCartList onHide={hideModalHandler}/>}
+    <Header onShowModal={showModalHandler} onHide={hideModalHandler}/>
     <div className="App">
-      <MedicineForm onShowModal={showModalHandler} onHide={hideModalHandler}/>
+      <MedicineForm />
       <MedicineList />
     </div>
     </MedicineProvider>

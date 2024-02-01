@@ -1,13 +1,14 @@
-form {
+.form1 {
     font-weight: 200px;
 }
-div {
+.form1 div {
     display: flex;
+    /* grid-auto-flow: column; */
     flex-wrap: wrap;
 }
-label {
+.form1 label {
     padding: 0 2rem;
 }
-button {
+.form1 button {
     font-size: 1.25rem;
 }
