@@ -22,6 +22,7 @@ const MedicineItem = (props) => {
         // const newItem =  {...props.item, qty:quantity};
         console.log('add to cart',cartNewItem);
         props.addItemToCart(cartNewItem);
+        setAvailQty(0);
     }
 
     const qtyChanger = (billQty) => {    
