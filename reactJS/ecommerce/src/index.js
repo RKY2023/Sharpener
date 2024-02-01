@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 /*
 React Bootstrap configuration
 // npm install react-bootstrap
+
 */
 import "../node_modules/react-bootstrap/dist/react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";

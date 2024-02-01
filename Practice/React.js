@@ -70,6 +70,7 @@ What is useState ?
 ...........................
 Prime React || React Bootstrap
 contains color, forms, carts, layout
+npx install react-bootstrap 
 */
 
 /*
