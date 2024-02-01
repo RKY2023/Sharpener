@@ -3,14 +3,14 @@ import Classes from './MedicineItem.module.css';
 import MedicineContext from "../../store/MedicineContext";
 
 const MedicineItem = (props) => {
-    const medicineListCtx = useContext(MedicineContext);
     const [billBtnisDisabled, setBillBtnDisabled] = useState(false);
-    const [qtyVal, setQtyVal] = useState('1');
+    const [qtyVal, setQtyVal] = useState(1);
     const [id, setId] = useState(props.item.id);
     const [name, setName] = useState(props.item.name);
     const [desc, setDesc] = useState(props.item.desc);
     const [price, setPrice] = useState(props.item.price);
-    const [quantity, setQuantity] = useState(props.item.qty);
+    const [quantity, setQuantity] = useState(Number(props.item.qty));
+    const [availQty, setAvailQty] = useState(0);
     
     const keyId='key_'+id;
     const disabledAtrr = (billBtnisDisabled ? 'disabled':'');
@@ -24,16 +24,17 @@ const MedicineItem = (props) => {
         props.addItemToCart(cartNewItem);
     }
 
-    const qtyChanger = (billQty) => {
-        const stockQty = isNaN(quantity) ? 0: quantity;
-        setQtyVal(billQty);
-        if(props.item.qty >= billQty){
+    const qtyChanger = (billQty) => {    
+        const newQty = quantity + availQty;    
+        if(newQty >= billQty){
             setBillBtnDisabled(false);
-            setQuantity(stockQty-billQty);
+            setQuantity(newQty-billQty);
+            setAvailQty(billQty);
         }
         else {
             setBillBtnDisabled(true);
-            setQuantity('Out of Stock');
+            setAvailQty(newQty);
+            setQuantity(0);
             return;
         }
         setName(name);
@@ -43,12 +44,19 @@ const MedicineItem = (props) => {
     }
 
     const onQtyChange = (event) =>{
-        const billQty = Number(event.target.value);
-        setQtyVal(billQty);
-        qtyChanger(billQty);
+        // const timer1  = setTimeout( () => {
+            const billQty = Number(event.target.value);
+            setQtyVal(billQty);
+            qtyChanger(billQty);
+            console.log(billQty);
+        // }, 500);
+        // const tt = () => {
+        //     clearTimeout(timer1);
+        // }
+        
     }
 
-
+    const quantityText = quantity < 1 ? 'Out of Stock': quantity;
 
     return (
         <>
@@ -57,11 +65,11 @@ const MedicineItem = (props) => {
                 <label>{name}</label>
                 <label>{desc}</label>
                 <label >{price}</label>
-                <label>{quantity}</label>
+                <label>{quantityText}</label>
             </div>
             <div>
                 <label>Qty</label>
-                <input id={inputId} type="number" minValue="1" step="1" onChange={onQtyChange} value={qtyVal}></input>
+                <input id={inputId} type="number" step="1" onChange={onQtyChange} value={qtyVal}></input>
                 <button onClick={addBillHandler} disabled={disabledAtrr}>Add to bill</button>
             </div>
         </li>
