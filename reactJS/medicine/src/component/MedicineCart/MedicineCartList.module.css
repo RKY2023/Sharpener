@@ -1,0 +1,19 @@
+.ul2 {
+    display: grid;
+    grid-row: auto;
+    list-style: none;
+}
+.li2 {
+    display: flex;
+}
+.flex1 {
+    flex-flow: column;
+}
+.button2 {
+    width: 5rem;
+    align-self: center;
+}
+.name {
+    font-weight: bold;
+    padding: 0 3rem 0 0;
+}
