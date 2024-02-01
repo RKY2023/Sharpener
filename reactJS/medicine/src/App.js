@@ -5,7 +5,7 @@ import MedicineList from './component/MedicineList/MedicineList';
 import MedicineCartList from './component/MedicineCart/MedicineCartList';
 import MedicineProvider from "./store/MedicineProvider";
 
-function App() {
+const App = (props) => {
   const [modalIsShown, setModalIsShown] = useState(false);
 
   const showModalHandler = () => {

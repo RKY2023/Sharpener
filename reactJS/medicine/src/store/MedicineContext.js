@@ -2,8 +2,11 @@ import React from "react";
 
 const MedicineContext = React.createContext({
     items: [],
-    totalAmount: 0,
-    addMedicine: () => {},
+    addMedicine: (item) => {},
+    cartItems: [],
+    cartTotalAmount: 0,
+    addItemToCart: (item) => {},
 })
+
 
 export default MedicineContext;
