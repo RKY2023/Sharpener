@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import MoviesList from './components/MoviesList';
 import './App.css';
 import { useCallback } from 'react';
+import MovieForm from './components/MovieForm';
 
 const App = (props) => {
   const dummyMovies = [
@@ -131,6 +132,9 @@ const App = (props) => {
 
   return (
     <React.Fragment>
+      <section>
+        <MovieForm />
+      </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>

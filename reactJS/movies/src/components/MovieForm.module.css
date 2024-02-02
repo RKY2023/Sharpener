@@ -1,0 +1,7 @@
+.movieForm {
+    text-align: left;
+}
+
+.movieForm textarea {
+    border-radius: .5rem;
+}
