@@ -53,7 +53,8 @@ value and trigger a re-render.
 //  eg. entering email,search product using api calls
 // store date in browser, send http req, (set & Manage timers)
 // outside normal function => useEffect
-useEffect(function, [dependencies])
+useEffect(function, [dependencies]) 
+useEffect called after rendering of current component
 
 useContext vs props chain 
 useContext Advantage ==> data to (lots of)/(specific)/all component

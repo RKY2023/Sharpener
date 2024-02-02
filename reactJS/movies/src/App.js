@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import MoviesList from './components/MoviesList';
 import './App.css';
+import { useCallback } from 'react';
 
 const App = (props) => {
   const dummyMovies = [
@@ -39,12 +40,45 @@ const App = (props) => {
   //     setMovies(transformedMovies);
   //   });
   // }
+  
+  // async function fetchMoviesHandler () {
+  //   setIsLoading(true);
+  //   setError(null);
+  //   try {
+  //     const response = await fetch('https://swapi.dev/api/filmas')
+  //     if(!response.ok){
+  //       throw new Error('Something went wrong....Retrying');
+  //     }
+        
+  //     const data = await response.json();
+      
+  //     const transformedMovies = data.results.map( movieData => {
+  //       return {
+  //         id: movieData.episode_id,
+  //         title: movieData.title,
+  //         openingText: movieData.opening_crawl,
+  //         releaseDate: movieData.release_date
+  //       };
+  //     });
+  //     setMovies(transformedMovies);
+  //     // setIsLoading(false);
+  //   } catch (error) {
+  //     setError(error.message);
+  //     if(retryAPI === true){
+  //       setTimeout( () => {
+  //         fetchMoviesHandler();
+  //         console.log('fetching API again...');
+  //       },5000);
+  //     }
+  //   }
+  //   setIsLoading(false);
+  // }
 
-  async function fetchMoviesHandler () {
+  const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('https://swapi.dev/api/filmas')
+      const response = await fetch('https://swapi.dev/api/films')
       if(!response.ok){
         throw new Error('Something went wrong....Retrying');
       }
@@ -63,15 +97,19 @@ const App = (props) => {
       // setIsLoading(false);
     } catch (error) {
       setError(error.message);
-      if(retryAPI === true){
-        setTimeout( () => {
-          fetchMoviesHandler();
-          console.log('fetching API again...');
-        },5000);
-      }
+      // if(retryAPI === true){
+      //   setTimeout( () => {
+      //     fetchMoviesHandler();
+      //     console.log('fetching API again...');
+      //   },5000);
+      // }
     }
     setIsLoading(false);
-  }
+  },[]);
+
+  useEffect( () => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
 
   const setRetryAPIHandler = () => {
     setRetryAPI(false);
