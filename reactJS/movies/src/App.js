@@ -21,7 +21,8 @@ const App = (props) => {
 
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);  
+  const [error, setError] = useState(null);
+  const [retryAPI, setRetryAPI] = useState(true);
 
   // const fetchMoviesHandler = () => {
   //   fetch('https://swapi.dev/api/films').then( response => {
@@ -43,9 +44,9 @@ const App = (props) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('https://swapi.dev/api/films')
+      const response = await fetch('https://swapi.dev/api/filmas')
       if(!response.ok){
-        throw new Error('Something went wrong!');
+        throw new Error('Something went wrong....Retrying');
       }
         
       const data = await response.json();
@@ -62,8 +63,18 @@ const App = (props) => {
       // setIsLoading(false);
     } catch (error) {
       setError(error.message);
+      if(retryAPI === true){
+        setTimeout( () => {
+          fetchMoviesHandler();
+          console.log('fetching API again...');
+        },5000);
+      }
     }
     setIsLoading(false);
+  }
+
+  const setRetryAPIHandler = () => {
+    setRetryAPI(false);
   }
 
   let content = <p>No Movies Found!</p>;
@@ -73,7 +84,7 @@ const App = (props) => {
   }
 
   if(error){
-    content = <p>{error}</p>;
+    content = <p>{error}<button onClick={setRetryAPIHandler}>Cancel</button></p>;
   }
 
   if(isLoading){
