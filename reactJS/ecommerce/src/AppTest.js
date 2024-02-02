@@ -16,7 +16,9 @@ const AppTest = (props) => {
     3. Making Add to Cart Work 90 mins
     4. Implement the About page in the most optimised way 2 hr
     5. Implement the Home page 2 hr
-    6. 
+    6. Making Api calls in React 90 mins
+dsd
+
         {/* </Stack>; */}
         </>
     )
