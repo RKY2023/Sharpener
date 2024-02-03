@@ -2,7 +2,7 @@ import React from "react";
 import classes from './MovieForm.module.css';
 
 const MovieForm = (props) => {
-    assd
+     
 
     return (
     <div className={classes.movieForm}>
