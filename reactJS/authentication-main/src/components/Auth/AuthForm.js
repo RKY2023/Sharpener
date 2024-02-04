@@ -20,8 +20,11 @@ const AuthForm = () => {
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
+    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY';
+
     if(isLogin){
-      fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY',
+      url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY';
+      fetch(url,
         {
           method: 'POST',
           body: JSON.stringify({
@@ -40,16 +43,17 @@ const AuthForm = () => {
           });
         } else {
           return res.json().then( (data) => {
-            console.log(data.error);
-            if(data.error.message=='INVALID_LOGIN_CREDENTIALS'){
-
+            let errorMessage = 'Authentication Failed!';
+            if(data && data.error && data.error.message){
+              errorMessage = 'INVALID_LOGIN_CREDENTIALS';
             }
+            alert(errorMessage);
           });
         }
       });
 
     }else{
-      fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY',
+      fetch(url,
         {
           method: 'POST',
           body: JSON.stringify({
@@ -68,11 +72,13 @@ const AuthForm = () => {
           });
         } else {
           return res.json().then( (data) => {
-            console.log(data.error.code, data.error.message);
-            if(data.error.code == 400 && data.error.message=='EMAIL_EXISTS'){   
+            let errorMessage = 'SignUp Failed!';
+            if(data && data.error && data.error.message){
+              errorMessage = 'EMAIL_EXISTS';
               setIsEmailExist(true);
               switchAuthModeHandler();
             }
+            alert(errorMessage);
           });
         }
       });
