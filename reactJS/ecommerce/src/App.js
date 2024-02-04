@@ -1,16 +1,19 @@
 import './App.css';
 import Header from './components/Layout/Header';
 import AppTest from './AppTest';
+import EcommerceProvider from './store/EcommerceProvider';
 
-import { Route } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
 
-function App() {
+const App = (props) => {
   return (
-    <div className="App">
-      <Header />
-      <AppTest />
-      <Route />
-    </div>
+    <EcommerceProvider>
+      <div className="App">
+        <Header />
+        <AppTest />
+        {/* <Route /> */}
+      </div>
+    </EcommerceProvider>
   );
 }
 

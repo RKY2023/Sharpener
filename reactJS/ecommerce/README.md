@@ -1,10 +1,14 @@
-# Getting Started with Create React App
+# Ecommerce Website using React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is about making of Ecommerce Website
 
-## Available Scripts
+## Applied Tech
 
-In the project directory, you can run:
+React BootStrap, 
+
+### `React BootStrap` Testing & Applied
+
+BootStrap, React Bootstrap,
 
 ### `npm start`
 
