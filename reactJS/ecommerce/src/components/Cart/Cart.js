@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Modal from "../Modal.js/Modal";
+import Modal from "../UI/Modal/Modal";
 import EcommerceContext from "../../store/EcommerceContext";
 
 const Cart = (props) =>{
