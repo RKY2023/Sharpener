@@ -22,6 +22,7 @@ const AuthForm = () => {
 
     let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY';
 
+    setIsLoading(true);
     if(isLogin){
       url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY';
       fetch(url,
@@ -37,6 +38,7 @@ const AuthForm = () => {
           }
         }
       ).then((res) => {
+        setIsLoading(false);
         if(res.ok) {
           return res.json().then( (data) => {
             console.log(data);
@@ -47,9 +49,11 @@ const AuthForm = () => {
             if(data && data.error && data.error.message){
               errorMessage = 'INVALID_LOGIN_CREDENTIALS';
             }
-            alert(errorMessage);
+            throw new Error(errorMessage);
           });
         }
+      }).catch(err => {
+        alert(err);
       });
 
     }else{
@@ -78,9 +82,11 @@ const AuthForm = () => {
               setIsEmailExist(true);
               switchAuthModeHandler();
             }
-            alert(errorMessage);
+            throw new Error(errorMessage);
           });
         }
+      }).catch((err) =>{
+        alert(err);
       });
     }
   };
@@ -105,9 +111,8 @@ const AuthForm = () => {
           />
         </div>
         <div className={classes.actions}>
-          <button>
-            {isLogin ? 'Login':'Create Account'}
-          </button>
+          {!isLoading && <button>{isLogin ? 'Login':'Create Account'}</button>}
+          {isLoading && <p>Sending request...</p>}
           <button
             type='button'
             className={classes.toggle}
