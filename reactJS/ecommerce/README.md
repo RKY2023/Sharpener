@@ -8,7 +8,7 @@ React BootStrap,
 
 ### `React BootStrap` Testing & Applied
 
-BootStrap, React Bootstrap,
+NavBar
 
 ### `npm start`
 

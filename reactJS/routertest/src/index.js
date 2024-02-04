@@ -15,7 +15,7 @@
 
 // import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route, Switch  } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Switch, Redirect  } from 'react-router-dom';
 // import './index.css';
 import Welcome from './pages/Welcome';
 import Products from './pages/Product';
@@ -28,7 +28,11 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path='/' element={<App />} />
+      <Route path='/' element={<App />}/>
+        {/* <Redirect to='/main' /> */}
+      {/* </Route> */}
+
+      <Route path='/main' element={<App />} />
       <Route path="/welcome" element={<Welcome />} />
       <Route path="/products" exact element={<Products />} />
       <Route path="/products/:productId" element={<ProductDetail />} />
