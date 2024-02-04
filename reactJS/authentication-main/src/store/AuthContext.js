@@ -5,18 +5,30 @@ const AuthContext = React.createContext({
     isLoggedIn: false,
     login: (token) => {},
     logout: () => {},
+    updatePassword: (token) => {},
 });
 
 const AuthContextProvider = (props) => {
     const [token, setToken] = useState(null);
 
-    // const logg
+    const logInHandler = (token) => {
+
+    }
+
+    const logoutHandler = () => {
+
+    }
+
+    const passwordUpdateHandler = () => {
+
+    }
 
     const authContext = {
         token: '',
         isLoggedIn: false,
-        login: (token) => {},
-        logout: () => {},
+        login: logInHandler,
+        logout: logoutHandler,
+        updatePassword: passwordUpdateHandler,
     }
 
     return (
