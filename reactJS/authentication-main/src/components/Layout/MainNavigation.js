@@ -6,8 +6,10 @@ import AuthContextProvider from '../../store/AuthContext';
 
 const MainNavigation = () => {
   const authCtx = useContext(AuthContextProvider);
+  console.log(authCtx);
 
-  const isLoggedIn = authCtx.isLoggedIn;
+  // const isLoggedIn = authCtx.isLoggedIn;
+  const isLoggedIn =true;
 
   const logoutHandler = () => {
     authCtx.logout();

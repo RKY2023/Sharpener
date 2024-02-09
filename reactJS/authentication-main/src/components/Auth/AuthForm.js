@@ -19,7 +19,7 @@ const AuthForm = () => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-
+    
     let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY';
 
     setIsLoading(true);
@@ -90,6 +90,7 @@ const AuthForm = () => {
       });
     }
   };
+  
   
 
   return (

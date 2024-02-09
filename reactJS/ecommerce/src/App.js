@@ -10,13 +10,16 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import AboutUs from './pages/AboutUs';
 import ContactUS from './pages/ContactUS';
+import ProductDetails from './pages/ProductDetail';
+
 
 const router = createBrowserRouter([
   {path: '/', element: <Home />},
-  {path: '/products', element: <Products />},
+  {path: '/product', element: <Products />},
+  {path: '/product/:productId', element: <ProductDetails />},
   {path: '/about', element: <AboutUs />},
   {path: '/contact', element: <ContactUS />},
-])
+]);
 
 const App = (props) => {
   const [isModalShown, setIsModalShown] = useState(false);

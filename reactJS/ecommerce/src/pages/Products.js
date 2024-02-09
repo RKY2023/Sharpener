@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button, Col, Row, Card, Container } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 import EcommerceContext from "../store/EcommerceContext";
 
 const Products = (props) => {
@@ -46,7 +47,7 @@ const Products = (props) => {
     const itemContent = productsArr.map( (item) => (
         <Col>
             <Card>
-                <Card.Title>{item.title}</Card.Title>
+                <Card.Title><Link to={`/product/p${item.id}`}>{item.title}</Link></Card.Title>
                 <Card.Img variant="top" src={item.imageUrl} />
                 <Card.Text>{item.price}</Card.Text>
                 <Button id={item.id} variant="primary" onClick={addToCartHandler}>

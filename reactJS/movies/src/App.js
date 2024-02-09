@@ -26,6 +26,11 @@ const App = (props) => {
   const [error, setError] = useState(null);
   const [retryAPI, setRetryAPI] = useState(true);
 
+  const addMovieHandler = (newMovieObj) =>{
+    updateMovieFirebase(newMovieObj);
+  };
+
+
   // const fetchMoviesHandler = () => {
   //   fetch('https://swapi.dev/api/films').then( response => {
   //     return response.json();
@@ -79,22 +84,35 @@ const App = (props) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('https://swapi.dev/api/films')
+      // const response = await fetch('https://swapi.dev/api/films');
+      const response = await fetch('https://atomic-matrix-193707-default-rtdb.firebaseio.com/movie.json');
       if(!response.ok){
         throw new Error('Something went wrong....Retrying');
       }
         
       const data = await response.json();
+
+      const loadedMovies = [];
+
+      for (const key in data){
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        })
+      }
       
-      const transformedMovies = data.results.map( movieData => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date
-        };
-      });
-      setMovies(transformedMovies);
+      // const transformedMovies = data.results.map( movieData => {
+      //   return {
+      //     id: movieData.episode_id,
+      //     title: movieData.title,
+      //     openingText: movieData.opening_crawl,
+      //     releaseDate: movieData.release_date
+      //   };
+      // });
+      // setMovies(transformedMovies);
+      setMovies(loadedMovies);
       // setIsLoading(false);
     } catch (error) {
       setError(error.message);
@@ -111,6 +129,21 @@ const App = (props) => {
   useEffect( () => {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
+
+  const updateMovieFirebase = useCallback( async (newMovieObj) => {
+    try {
+      const response = fetch('https://atomic-matrix-193707-default-rtdb.firebaseio.com/movie.json', {
+        method: 'POST',
+        body: JSON.stringify(newMovieObj),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log(response);
+    } catch (err){
+      console.log(err);
+    }
+  },[]);
 
   const setRetryAPIHandler = () => {
     setRetryAPI(false);
@@ -133,7 +166,7 @@ const App = (props) => {
   return (
     <React.Fragment>
       <section>
-        <MovieForm />
+        <MovieForm addMovie={addMovieHandler}/>
       </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
