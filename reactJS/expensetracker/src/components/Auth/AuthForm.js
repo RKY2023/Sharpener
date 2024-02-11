@@ -11,6 +11,8 @@ const AuthForm = (props) =>{
     const inputPasswordRef = useRef();
     const inputConfirmPasswordRef = useRef();
     const [isLogin, setIsLogin] = useState(false);
+    const [isLoginSucessful, setIsLoginSucessful] = useState(false);
+    const [output, setOutput] = useState('');
 
     const loginHandler = (event) => {
         event.preventDefault();
@@ -24,13 +26,20 @@ const AuthForm = (props) =>{
     }
 
     const responseMsg = (data) => {
+        // console.log(data);
         if(data && data.error && data.error.message){
-            if(data.error.status == 400 && data.error.message == 'EMAIL_EXISTS')
+            if(data.error.code == 400 && data.error.message == 'EMAIL_EXISTS')
             console.log('Invalid password');
+            const out= ''+(isLogin?'Login':'Signup')+' '+data.error.code +' '+ data.error.message;
+            setOutput(out);
         }else if(data && data.error && data.error.message){
-            // if(data.error.status == 400 && data.error.message == 'EMAIL_EXISTS')
-            // console.log('Invalid password');
-            console.log(isLogin?'Login':'Signup', data.error.status, data.error.message)
+            // if(data.error.code == 400 && data.error.message == 'EMAIL_EXISTS')
+            const out= ''+(isLogin?'Login':'Signup')+' '+data.error.code +' '+ data.error.message;
+            console.log(isLogin?'Login':'Signup', data.error.code, data.error.message)
+            setOutput(out);
+        }else if(data && data.email && data.kind && data.email==inputEmailRef.current.value){
+            const out= ''+(isLogin?'Login':'Signup')+' User Created '+data.kind;
+            setOutput(out);
         }else{
             console.log(data);
         }
@@ -71,6 +80,7 @@ const AuthForm = (props) =>{
     return (
         <>
         <div className="container p-5">
+            <div>{output}</div>
             <Form className='col pb-3' onSubmit={submitHandler}>
                 <Form.Group className="row mb-3">
                     <Form.Label>Email Id</Form.Label>

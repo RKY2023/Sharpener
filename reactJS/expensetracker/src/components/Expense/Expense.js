@@ -1,12 +1,12 @@
 import React from "react";
-import { Navbar } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 
 const Expense = (props) => {
     return (
         <>
-        <Navbar >
-            
-        </Navbar>
+        {/* <Navbar >
+            <Navbar.Brand>Welcome to Expense Tracker!!!</Navbar.Brand>
+        </Navbar> */}
         <h1>Welcome to Expense Tracker!!!</h1>
         </>
     );
