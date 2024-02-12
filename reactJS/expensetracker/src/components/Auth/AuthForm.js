@@ -1,5 +1,7 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useContext } from "react";
 import { Button, Form } from 'react-bootstrap';
+import ExpenseContext from "../../store/ExpenseContext";
+import { useHistory } from "react-router-dom";
 
 const urls = {
     login: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY',
@@ -7,10 +9,13 @@ const urls = {
 }
 
 const AuthForm = (props) =>{
+    const history = useHistory();
+    const authCtx = useContext(ExpenseContext);
+
     const inputEmailRef = useRef();
     const inputPasswordRef = useRef();
     const inputConfirmPasswordRef = useRef();
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(authCtx.isLoggedIn);
     const [isLoginSucessful, setIsLoginSucessful] = useState(false);
     const [output, setOutput] = useState('');
 
@@ -21,28 +26,39 @@ const AuthForm = (props) =>{
 
     let url = urls.login;
 
-    if(!isLogin){
+    if(isLogin){
+        history.replace('/home');
+    }else{
         url = urls.signUp;
     }
 
     const responseMsg = (data) => {
         // console.log(data);
+        let out = ''+(isLogin?'Login':'Signup');
         if(data && data.error && data.error.message){
-            if(data.error.code == 400 && data.error.message == 'EMAIL_EXISTS')
-            console.log('Invalid password');
-            const out= ''+(isLogin?'Login':'Signup')+' '+data.error.code +' '+ data.error.message;
-            setOutput(out);
-        }else if(data && data.error && data.error.message){
-            // if(data.error.code == 400 && data.error.message == 'EMAIL_EXISTS')
-            const out= ''+(isLogin?'Login':'Signup')+' '+data.error.code +' '+ data.error.message;
-            console.log(isLogin?'Login':'Signup', data.error.code, data.error.message)
-            setOutput(out);
-        }else if(data && data.email && data.kind && data.email==inputEmailRef.current.value){
-            const out= ''+(isLogin?'Login':'Signup')+' User Created '+data.kind;
-            setOutput(out);
+            if(isLogin && data.error.code == 400 && data.error.message == 'EMAIL_EXISTS'){
+                out= +': Invalid password';
+                setOutput(out);
+            }else if(!isLogin && data.error.code == 400 && data.error.message == 'EMAIL_EXISTS'){
+                out= +': Email already exists';
+                setOutput(out);
+            }else{
+                out +=' '+data.error.code +' '+ data.error.message;
+                console.log(out)
+                setOutput(out);
+            }
+        }else if(data && data.email && data.kind){
+            if(data.kind == "identitytoolkit#SignupNewUserResponse"){
+                out +=' '+data.kind;
+                setOutput(out);
+                return 1;
+            }
+            
         }else{
             console.log(data);
+            setOutput(JSON.stringify(data));
         }
+        return 0;
     }
 
     const loginFirebaseUser = useCallback( async (userData) => {
@@ -59,8 +75,18 @@ const AuthForm = (props) =>{
                 }
             });
             const data = await response.json();
+            console.log(data);
+            if(data && data.idToken){
+                if(data.kind == "identitytoolkit#SignupNewUserResponse"){
+                    authCtx.login(data.idToken);
+                    responseMsg('Sign Up Successful');
+                }else{
+
+                }
+            }
             responseMsg(data);
         } catch (err) {
+            console.log(err);
             responseMsg(err);
         }
     },[]);
@@ -71,16 +97,18 @@ const AuthForm = (props) =>{
             email: inputEmailRef.current.value,
             password: inputPasswordRef.current.value,
         }
-        
-        const enteredConfirmPasswrord = inputConfirmPasswordRef.current.value;
-
-        loginFirebaseUser(userData);
+                
+        if( inputConfirmPasswordRef.current.value == inputPasswordRef.current.value){
+            loginFirebaseUser(userData);
+        }else {
+            responseMsg('Please enter the same password');
+        }        
     }
   
     return (
         <>
         <div className="container p-5">
-            <div>{output}</div>
+            <div className="text-center bg-warning">{output}</div>
             <Form className='col pb-3' onSubmit={submitHandler}>
                 <Form.Group className="row mb-3">
                     <Form.Label>Email Id</Form.Label>

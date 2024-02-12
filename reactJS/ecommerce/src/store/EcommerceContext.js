@@ -7,6 +7,10 @@ const EcommerceContext = React.createContext({
     addToCart: () => {},
     user: [],
     setUserContact: () => {},
+    login: (token) => {},
+    logout: () => {},
+    token: null,
+    isLoggedIn: false,
 })
 
 export default EcommerceContext;

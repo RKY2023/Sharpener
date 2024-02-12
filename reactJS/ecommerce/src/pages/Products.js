@@ -43,26 +43,22 @@ const Products = (props) => {
         console.log(item);
         ecommerceCtx.addToCart(...item);
     }
-
+    
     const itemContent = productsArr.map( (item) => (
-        <Col>
-            <Card>
-                <Card.Title><Link to={`/product/p${item.id}`}>{item.title}</Link></Card.Title>
-                <Card.Img variant="top" src={item.imageUrl} />
-                <Card.Text>{item.price}</Card.Text>
-                <Button id={item.id} variant="primary" onClick={addToCartHandler}>
-                    Add
-                </Button>
-            </Card>
-        </Col>
+        <Card className="m-3 p-3 col-6 ">
+            <Card.Title className="text-center"><Link to={`/product/p${item.id}`} className=" text-decoration-none">{item.title}</Link></Card.Title>
+            <Card.Img variant="top" src={item.imageUrl} />
+            <Card.Text>{item.price}</Card.Text>
+            <Button id={item.id} variant="primary" onClick={addToCartHandler}>
+                Add
+            </Button>
+        </Card>
     ));
 
     return (
         <>
-        <Container>
-            <Row>
-                {itemContent}              
-            </Row>
+        <Container className="flex felx wrap">
+            {itemContent}              
         </Container>
         </>
     );
