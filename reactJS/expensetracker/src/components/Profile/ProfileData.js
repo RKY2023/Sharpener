@@ -40,7 +40,7 @@ const ProfileData = (props) => {
 
     useEffect( () => {
         getUserDetailToFirebase(tokenId);
-    },[tokenId]);
+    },[]);
 
     return (
         <>

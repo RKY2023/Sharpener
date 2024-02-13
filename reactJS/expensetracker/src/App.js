@@ -15,7 +15,10 @@ const App = (props) => {
     <>
     {!(isLoggedIn) && (
       <Switch>
-        <Route path='/auth' index exact>
+        <Route path='/' index exact>
+          <AuthPg />
+        </Route>
+        <Route path='/auth' exact>
           <AuthPg />
         </Route>
         <Route path='/forgotPassword'>
