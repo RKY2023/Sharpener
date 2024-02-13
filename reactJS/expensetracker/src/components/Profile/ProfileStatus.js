@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const ProfileStatus = (props) => {
     return (
@@ -8,7 +9,7 @@ const ProfileStatus = (props) => {
             <div>
                 Your Profile is incomplete.
             </div>
-            <Button type='button' className='btn-sm'>Complete Now</Button>
+            <Link to='/profile' className='btn-sm'>Complete Now</Link>
         </div>
         </div>
     );

@@ -4,9 +4,9 @@ import { Switch, Route } from 'react-router-dom';
 import HomePg from './pages/HomePg';
 import AuthPg from './pages/AuthPg';
 import Expense from './components/Expense/Expense';
-import Layout from './components/Layout/Layout';
 import ExpenseContext from './store/ExpenseContext';
 import ForgotPassword from './components/Auth/ForgotPassword';
+import Profile from './components/Profile/Profile';
 
 const App = (props) => {
   const authCtx = useContext(ExpenseContext);
@@ -15,7 +15,7 @@ const App = (props) => {
     <>
     {!(isLoggedIn) && (
       <Switch>
-        <Route path='/' exact>
+        <Route path='/auth' index exact>
           <AuthPg />
         </Route>
         <Route path='/forgotPassword'>
@@ -24,10 +24,9 @@ const App = (props) => {
       </Switch>
     )}
     {(isLoggedIn) && (
-      <Layout>
         <Switch>
           <Route path='/' exact>
-            {/* <HomePg /> */}
+            <HomePg />
           </Route>
           <Route path='/auth'>
             <AuthPg />
@@ -38,11 +37,13 @@ const App = (props) => {
           <Route path='/home'>
             <HomePg />
           </Route>
+          <Route path='/profile'>
+            <Profile />
+          </Route>
           <Route path='/expense'>
             <Expense />
           </Route>
         </Switch>
-      </Layout>
     )}
     </>
   );

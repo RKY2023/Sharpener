@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useCallback, useState } from "react";
+import { Link } from 'react-router-dom';
 import ExpenseContext from "../../store/ExpenseContext";
 
 const ProfileData = (props) => {
@@ -46,6 +47,7 @@ const ProfileData = (props) => {
         <div>
             Name: {name} <br></br> Url: {profileUrl}
         </div>
+        <Link to='/expense'>Go to Expense</Link>
         </>
     );
 };

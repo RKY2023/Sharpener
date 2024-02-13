@@ -55,7 +55,7 @@ const ForgotPassword = (props) =>{
             console.log(data);
             if(data.kind == "identitytoolkit#GetOobConfirmationCodeResponse"){
                 responseMsg(data);
-                history.replace('/');
+                history.replace('/auth');
             }            
         } catch (err) {
             console.log(err);

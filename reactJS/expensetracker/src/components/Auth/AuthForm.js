@@ -85,7 +85,7 @@ const AuthForm = (props) =>{
                 }else{
                     responseMsg('Login Successful');
                 }
-                history.replace('/');
+                history.replace('/profile');
             }
             responseMsg(data);
         } catch (err) {
