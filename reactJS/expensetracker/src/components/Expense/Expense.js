@@ -1,28 +1,28 @@
-import { React, useRef } from "react";
+import { React, useCallback, useEffect, useRef, useState } from "react";
 import { Button, Container, Form, Nav, Navbar, Table } from "react-bootstrap";
 
 const initialExpense = [
     {
         id: 0,
-        meney: 12000,
+        money: 12000,
         desc: 'Rent',
         category: 'Rent',
     },
     {
         id: 1,
-        meney: 5000,
+        money: 5000,
         desc: 'Maintenance',
         category: 'Maintenace',
     },
     {
         id: 2,
-        meney: 4000,
+        money: 4000,
         desc: 'Grocery',
         category: 'food',
     },
     {
         id: 3,
-        meney: 1500,
+        money: 1500,
         desc: 'Milk',
         category: 'food',
     },
@@ -32,19 +32,71 @@ const Expense = (props) => {
     const inputCategoryRef = useRef();
     const inputDescriptionRef = useRef();
     const inputMoneyRef = useRef();
+    const [expenses, setExpenses] = useState(initialExpense);
 
     const submitHandler = (e) => {
         e.preventDefault();
         const expense = {
-            
+            category: inputCategoryRef.current.value,
+            desc: inputDescriptionRef.current.value,
+            money: inputMoneyRef.current.value
         }
+        addExpenseToFirebase(expense);
     }
-    const expensesJSX = initialExpense.map( (expense) => (
+
+    const addExpenseToFirebase = useCallback( async (expense) => {
+        const url = 'https://atomic-matrix-193707-default-rtdb.firebaseio.com/Expenses.json';
+        try{
+            const response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(expense),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            console.log(data);
+            if(data & data.name)
+                console.log('Expenses added');
+        }catch(err){
+            console.log(err);
+        }
+    },[]);
+
+    const setExpenseToFirebase = useCallback( async () => {
+        const url = 'https://atomic-matrix-193707-default-rtdb.firebaseio.com/Expenses.json';
+        try{
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log(data);
+            if(data){
+                console.log('Expenses fetched');
+                const loadedExpenses = [];
+                for (const key in data){
+                    loadedExpenses.push({
+                        id: key,
+                        category: data[key].category,
+                        desc: data[key].desc,
+                        money: data[key].money,
+                    })
+                }
+                setExpenses(loadedExpenses);
+            }
+        }catch(err){
+            console.log(err);
+        }
+    },[]);
+
+    useEffect( () => {
+        setExpenseToFirebase();
+    },[setExpenseToFirebase,expenses]);
+
+    const expensesJSX = expenses.map( (expense) => (
         <tr>
             <td>{expense.id}</td>
             <td>{expense.category}</td>
             <td>{expense.desc}</td>
-            <td>{expense.meney}</td>
+            <td>{expense.money}</td>
         </tr>
     ));
 
@@ -64,7 +116,7 @@ const Expense = (props) => {
                 <Button type="submit" className="ml-auto my-2 btn-warning btn-sm">Add Expense</Button>
             </Form>
         </Container>
-        <Container>
+        <Container className="">
             <Table striped bordered hover>
                 <thead>
                     <tr>
