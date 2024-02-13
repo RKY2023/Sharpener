@@ -2,6 +2,12 @@ import React, { useCallback, useContext, useRef } from "react";
 import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import ExpenseContext from "../../store/ExpenseContext";
 
+const urls = {
+    NameAndProfileUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY',
+    update: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY',
+    sendEmailVerification: '',
+}
+
 const ProfileUpdate = (props) => {
     const inputNameRef = useRef();
     const inputImgUrlRef = useRef();

@@ -27,6 +27,7 @@ const ProfileData = (props) => {
                 if(data.users){
                     setName(data.users[0].displayName);
                     setProfileUrl(data.users[0].photoUrl);
+                    // data.users[0].emailVerified
                 }
             }
             console.log(data);
