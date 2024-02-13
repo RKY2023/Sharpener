@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState, useContext, useEffect } from "rea
 import { Button, Form } from 'react-bootstrap';
 import ExpenseContext from "../../store/ExpenseContext";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const urls = {
     login: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY',
@@ -128,6 +129,9 @@ const AuthForm = (props) =>{
                 <Button className='text-right' type='submit'>
                     {!isSignUp ? 'Login': 'Sign up'}
                 </Button>
+                <Form.Group>
+                    <Link to='/forgotPassword'>Forgot Password?</Link>
+                </Form.Group>
             </Form>
             <hr />
             <Button className="btn btn-secondary" onClick={signUpLoginHandler}>
