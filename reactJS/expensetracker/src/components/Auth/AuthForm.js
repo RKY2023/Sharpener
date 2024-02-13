@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState, useContext } from "react";
+import React, { useCallback, useRef, useState, useContext, useEffect } from "react";
 import { Button, Form } from 'react-bootstrap';
 import ExpenseContext from "../../store/ExpenseContext";
 import { useHistory } from "react-router-dom";
@@ -15,31 +15,26 @@ const AuthForm = (props) =>{
     const inputEmailRef = useRef();
     const inputPasswordRef = useRef();
     const inputConfirmPasswordRef = useRef();
+    const [isSignUp, setIsSignUp] = useState(true);
     const [isLogin, setIsLogin] = useState(authCtx.isLoggedIn);
     const [isLoginSucessful, setIsLoginSucessful] = useState(false);
     const [output, setOutput] = useState('');
 
-    const loginHandler = (event) => {
+    const signUpLoginHandler = (event) => {
         event.preventDefault();
-        setIsLogin(!isLogin);
-    }
-
-    let url = urls.login;
-
-    if(isLogin){
-        history.replace('/home');
-    }else{
-        url = urls.signUp;
+        setIsSignUp((isSignUp) => {
+            return !isSignUp;
+        });
     }
 
     const responseMsg = (data) => {
         // console.log(data);
-        let out = ''+(isLogin?'Login':'Signup');
+        let out = ''+(!isSignUp?'Login':'Signup');
         if(data && data.error && data.error.message){
-            if(isLogin && data.error.code == 400 && data.error.message == 'EMAIL_EXISTS'){
+            if(!isSignUp && data.error.code == 400 && data.error.message == 'EMAIL_EXISTS'){
                 out= +': Invalid password';
                 setOutput(out);
-            }else if(!isLogin && data.error.code == 400 && data.error.message == 'EMAIL_EXISTS'){
+            }else if(isSignUp && data.error.code == 400 && data.error.message == 'EMAIL_EXISTS'){
                 out= +': Email already exists';
                 setOutput(out);
             }else{
@@ -62,6 +57,12 @@ const AuthForm = (props) =>{
     }
 
     const loginFirebaseUser = useCallback( async (userData) => {
+        let url = '';
+        if(isSignUp){
+            url = urls.signUp;
+        }else{
+            url = urls.login;
+        }
         try {
             const response = await fetch(url, {
                 method: "POST",
@@ -77,19 +78,21 @@ const AuthForm = (props) =>{
             const data = await response.json();
             console.log(data);
             if(data && data.idToken){
+                authCtx.login(data.idToken);
                 if(data.kind == "identitytoolkit#SignupNewUserResponse"){
-                    authCtx.login(data.idToken);
                     responseMsg('Sign Up Successful');
                 }else{
-
+                    responseMsg('Login Successful');
                 }
+                history.replace('/');
             }
             responseMsg(data);
         } catch (err) {
             console.log(err);
             responseMsg(err);
         }
-    },[]);
+    },[isSignUp]);
+
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -123,12 +126,12 @@ const AuthForm = (props) =>{
                     <Form.Control type='password'ref={inputConfirmPasswordRef} />
                 </Form.Group>
                 <Button className='text-right' type='submit'>
-                    {isLogin ? 'Login': 'Sign up'}
+                    {!isSignUp ? 'Login': 'Sign up'}
                 </Button>
             </Form>
             <hr />
-            <Button className="btn btn-secondary" onClick={loginHandler}>
-            {isLogin ? 'Don\'t have an account? Sign Up': 'Have an account? Login'}
+            <Button className="btn btn-secondary" onClick={signUpLoginHandler}>
+            {!isSignUp ? 'Don\'t have an account? Sign Up': 'Have an account? Login'}
             </Button>
         </div>
         </>

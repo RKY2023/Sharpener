@@ -4,16 +4,16 @@ import ExpenseContext from "../store/ExpenseContext";
 
 
 const HomePg = (props) => {
-    const history = useHistory();
-    const authCtx = useContext(ExpenseContext);
+    // const history = useHistory();
+    // const authCtx = useContext(ExpenseContext);
     // const [isLoggedIn, setIsLoggedIn] = useState(authCtx.isLoggedIn);
 
     
-    useEffect(()=>{
-        if(!authCtx.isLoggedIn){
-            history.replace('/auth');
-        }
-    },[]);
+    // useEffect(()=>{
+    //     if(!authCtx.isLoggedIn){
+    //         // history.replace('/auth');
+    //     }
+    // },[]);
 
     return (
         <>
