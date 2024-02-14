@@ -14,6 +14,9 @@ const expenseSlice = createSlice({
         removeExpense(state) {
             state.expenses = [];
         },
+        premiunm(state) {
+            state.expenses = [];
+        },
     },
 });
 
