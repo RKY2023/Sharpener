@@ -1,5 +1,6 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useContext, useRef, useState, useEffect } from "react";
 import { Row, Col, Container, Form, Button } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 import ExpenseContext from "../../store/ExpenseContext";
 
 const urls = {
@@ -12,7 +13,10 @@ const ProfileUpdate = (props) => {
     const inputNameRef = useRef();
     const inputImgUrlRef = useRef();
     const inputEmailRef = useRef();
+    const [name, setName] = useState('');
+    const [profileUrl, setProfileUrl] = useState('');
     const authCtx = useContext(ExpenseContext);
+    const tokenId = authCtx.token;
 
     const verifyEmailHandler = (e) => {
         e.preventDefault();
@@ -80,6 +84,41 @@ const ProfileUpdate = (props) => {
         }
     },[]);
 
+    const getUserDetailToFirebase = useCallback( async (tokenId) => {
+        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY';
+        try{
+            const response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    idToken: tokenId
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            if(data && data.kind){
+                if(data.kind == "identitytoolkit#GetAccountInfoResponse")
+                    console.log(data.kind);
+                console.log('got User Data Successfully');
+                if(data.users){
+                    setName(data.users[0].displayName);
+                    setProfileUrl(data.users[0].photoUrl);
+                    // data.users[0].emailVerified
+                }
+            }
+            console.log(data);
+        }catch(err) {
+            console.log(err);
+            console.log(err.error.message);
+        }
+    },[tokenId]);
+
+    useEffect( () => {
+        getUserDetailToFirebase(tokenId);
+    },[]);
+
+
     return (
         <>
         <Container>
@@ -87,11 +126,11 @@ const ProfileUpdate = (props) => {
             <Row className="mb-3">
                 <Form.Group as={Col}>
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type='name' ref={inputNameRef} />
+                    <Form.Control type='name' ref={inputNameRef} value={name}/>
                 </Form.Group>
                 <Form.Group as={Col}>
                     <Form.Label>Profile Url</Form.Label>
-                    <Form.Control type='input' ref={inputImgUrlRef} />
+                    <Form.Control type='input' ref={inputImgUrlRef} value={profileUrl}/>
                 </Form.Group>
             </Row>
             <Row className="mb-3 m-auto">
@@ -109,6 +148,9 @@ const ProfileUpdate = (props) => {
                 </Form.Group>
             </Row>
         </Form>
+        </Container>
+        <Container className="m-5">
+            <Link to='/expense'>Go to Expense</Link>
         </Container>
         </>
     );

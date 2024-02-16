@@ -165,7 +165,7 @@ const Expense = (props) => {
 
   return (
     <>
-      <h1>Welcome to Expense Tracker!!!</h1>
+      <h1 className="mx-5 my-3">Welcome to Expense Tracker!!!</h1>
       <Container className="my-5">
         <Form onSubmit={submitAddExpenseHandler} className="">
           <Form.Group>

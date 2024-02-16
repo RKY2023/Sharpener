@@ -4,7 +4,7 @@ import AuthReducer from './AuthReducer';
 
 const store = configureStore({
     reducer: {
-        expenses: ExpenseReducer,
+        expense: ExpenseReducer,
         auth: AuthReducer,
     },
 });

@@ -13,7 +13,6 @@ const App = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(authCtx.isLoggedIn);
   return (
     <>
-    wewe
     {!(isLoggedIn) && (
       <Switch>
         <Route path='/' index exact>

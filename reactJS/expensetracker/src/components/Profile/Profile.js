@@ -8,7 +8,7 @@ const Profile = (props) => {
         <>
         <Layout>
             <ProfileUpdate />
-            <ProfileData />
+            {/* <ProfileData /> */}
         </Layout>
         </>
     );

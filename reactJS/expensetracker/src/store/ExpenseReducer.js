@@ -8,13 +8,13 @@ const expenseSlice = createSlice({
     name: 'expenseData',
     initialState: initialExpenseStore,
     reducers: {
-        addExpense(state) {
+        addExpense(state, action) {
+            state.expenses = [...state.expenses, action.payload];
+        },
+        removeExpense(state, action) {
             state.expenses = [];
         },
-        removeExpense(state) {
-            state.expenses = [];
-        },
-        premiunm(state) {
+        premium(state) {
             state.expenses = [];
         },
     },

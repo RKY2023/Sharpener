@@ -17,14 +17,15 @@ const MainHeader = (props) => {
     return (
     <>
     <div className='p-5'>
-        <Navbar>
-            <Navbar.Brand>Welcome to Expense Tracker</Navbar.Brand>
-            <ProfileStatus />
-            <Button className='m-3 btn-danger' onClick={logoutHandler}>Logout</Button>
+        <Navbar expand="lg" bg="dark" variant="dark">
+            <Container>
+                <Navbar.Brand>Welcome to Expense Tracker</Navbar.Brand>
+                <ProfileStatus />
+                <Button className='m-3 btn-danger' onClick={logoutHandler}>Logout</Button>
+            </Container>
         </Navbar>
         <hr></hr>
     </div>
-    
     </>
     );
 };
