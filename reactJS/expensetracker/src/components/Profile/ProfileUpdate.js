@@ -13,8 +13,6 @@ const ProfileUpdate = (props) => {
     const inputNameRef = useRef();
     const inputImgUrlRef = useRef();
     const inputEmailRef = useRef();
-    const [name, setName] = useState('');
-    const [profileUrl, setProfileUrl] = useState('');
     const authCtx = useContext(ExpenseContext);
     const tokenId = authCtx.token;
 
@@ -102,8 +100,8 @@ const ProfileUpdate = (props) => {
                     console.log(data.kind);
                 console.log('got User Data Successfully');
                 if(data.users){
-                    setName(data.users[0].displayName);
-                    setProfileUrl(data.users[0].photoUrl);
+                    inputNameRef.current.value = data.users[0].displayName;
+                    inputImgUrlRef.current.value = data.users[0].photoUrl;
                     // data.users[0].emailVerified
                 }
             }
@@ -126,11 +124,11 @@ const ProfileUpdate = (props) => {
             <Row className="mb-3">
                 <Form.Group as={Col}>
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type='name' ref={inputNameRef} value={name}/>
+                    <Form.Control type='name' ref={inputNameRef} />
                 </Form.Group>
                 <Form.Group as={Col}>
                     <Form.Label>Profile Url</Form.Label>
-                    <Form.Control type='input' ref={inputImgUrlRef} value={profileUrl}/>
+                    <Form.Control type='input' ref={inputImgUrlRef}/>
                 </Form.Group>
             </Row>
             <Row className="mb-3 m-auto">

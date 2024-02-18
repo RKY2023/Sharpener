@@ -1,5 +1,7 @@
 import { React, useCallback, useEffect, useRef, useState } from "react";
 import { Button, Container, Form, Nav, Navbar, Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { expenseActions } from "../../store/ExpenseReducer";
 
 const initialExpense = [
   {
@@ -29,6 +31,8 @@ const initialExpense = [
 ];
 
 const Expense = (props) => {
+  const dispatch = useDispatch();
+  const isWorthPremium = useSelector(state => state.expense.worthPremium);
   const inputCategoryRef = useRef();
   const inputDescriptionRef = useRef();
   const inputMoneyRef = useRef();
@@ -63,6 +67,11 @@ const Expense = (props) => {
     inputMoneyRef.current.value = getExpense[0].money;
     setModifyExpenseId(expenseId);
   };
+
+  const activatePremiumHandler = () => {
+    dispatch(expenseActions.activatePremium());
+    dispatch(expenseActions.setTheme());
+  }
 
   const addExpenseToFirebase = useCallback(async (expense, modifyExpenseId) => {
     let methodType = 'PUT';
@@ -136,7 +145,9 @@ const Expense = (props) => {
           });
         }
         setExpenses(loadedExpenses);
+        dispatch(expenseActions.checkExpense10k(loadedExpenses));
       }
+      
     } catch (err) {
       console.log(err);
     }
@@ -145,6 +156,34 @@ const Expense = (props) => {
   useEffect(() => {
     setExpenseToFirebase();
   }, [setExpenseToFirebase,addExpenseToFirebase, deleteExpenseToFirebase]);
+
+  const makeCSV = (rows) => {
+    const csvHeader = 'id, category, desc, money\n';
+    return csvHeader + rows.map(r=> '"'+r.id+'", "'+r.category+'", "'+r.desc+'", '+r.money).join('\n');
+  }
+  const runExpCSV = () => {
+    const  tt = makeCSV(expenses);
+    console.log(tt);
+    console.table(tt);
+    return
+  }
+  // console.log(expenses);
+
+  const createExpenseCSV = () => {
+    const blob = new Blob([makeCSV(expenses)], { type: 'text/plain' });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute(
+      'download',
+      `Expense.csv`,
+    );
+    const elem = document.getElementById('tt');
+    elem.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+    return ;
+  }
 
   const expensesJSX = expenses.map((expense) => (
     <tr>
@@ -166,6 +205,7 @@ const Expense = (props) => {
   return (
     <>
       <h1 className="mx-5 my-3">Welcome to Expense Tracker!!!</h1>
+      { isWorthPremium && <Button className='btn-success' onClick={activatePremiumHandler}>Activate Premium</Button>}
       <Container className="my-5">
         <Form onSubmit={submitAddExpenseHandler} className="">
           <Form.Group>
@@ -182,6 +222,7 @@ const Expense = (props) => {
         </Form>
       </Container>
       <Container className="">
+        <h3>Your Expenses</h3>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -194,6 +235,8 @@ const Expense = (props) => {
           </thead>
           <tbody>{expensesJSX}</tbody>
         </Table>
+        <h6 id='tt'></h6>
+        <a onClick={createExpenseCSV} className="pointer">Download CSV</a>
       </Container>
     </>
   );

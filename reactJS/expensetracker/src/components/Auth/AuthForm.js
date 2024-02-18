@@ -3,6 +3,8 @@ import { Button, Form } from 'react-bootstrap';
 import ExpenseContext from "../../store/ExpenseContext";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/AuthReducer";
 
 const urls = {
     login: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY',
@@ -11,6 +13,7 @@ const urls = {
 
 const AuthForm = (props) =>{
     const history = useHistory();
+    const dispatch = useDispatch();
     const authCtx = useContext(ExpenseContext);
 
     const inputEmailRef = useRef();
@@ -80,6 +83,7 @@ const AuthForm = (props) =>{
             console.log(data);
             if(data && data.idToken){
                 authCtx.login(data.idToken);
+                dispatch(authActions.login(data.idToken));
                 if(data.kind == "identitytoolkit#SignupNewUserResponse"){
                     responseMsg('Sign Up Successful');
                 }else{
@@ -91,6 +95,7 @@ const AuthForm = (props) =>{
         } catch (err) {
             console.log(err);
             responseMsg(err);
+            dispatch(authActions.logout());
         }
     },[isSignUp]);
 
