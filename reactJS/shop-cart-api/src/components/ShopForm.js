@@ -44,16 +44,6 @@ const ShopForm = (props) => {
 
       const data = await response.json();
 
-      const loadedData = [];
-      // for(const k in data){
-      //     loadedData.push({
-      //         id: k,
-      //         name: data[k].name,
-      //         price: data[k].price,
-      //         desc: data[k].desc,
-      //     })
-      // }
-
       const newData = {
         id: data.name,
         name: shopItem.name,
