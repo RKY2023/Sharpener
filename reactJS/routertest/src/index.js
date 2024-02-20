@@ -23,6 +23,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ProductDetail from './pages/ProductDetail';
 
+
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(

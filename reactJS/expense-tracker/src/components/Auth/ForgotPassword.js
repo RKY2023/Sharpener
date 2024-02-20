@@ -1,34 +1,16 @@
 import React, { useCallback, useRef, useState, useContext, useEffect } from "react";
 import { Button, Form } from 'react-bootstrap';
 import ExpenseContext from "../../store/ExpenseContext";
-import { useHistory, Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
-import { authActions } from "../../store/AuthReducer";
+import { useHistory } from "react-router-dom";
 
-const urls = {
-    login: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY',
-    signUp: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY',
-}
-
-const AuthForm = (props) =>{
+const ForgotPassword = (props) =>{
     const history = useHistory();
-    const dispatch = useDispatch();
     const authCtx = useContext(ExpenseContext);
 
     const inputEmailRef = useRef();
     const inputPasswordRef = useRef();
-    const inputConfirmPasswordRef = useRef();
     const [isSignUp, setIsSignUp] = useState(true);
-    const [isLogin, setIsLogin] = useState(authCtx.isLoggedIn);
-    const [isLoginSucessful, setIsLoginSucessful] = useState(false);
     const [output, setOutput] = useState('');
-
-    const signUpLoginHandler = (event) => {
-        event.preventDefault();
-        setIsSignUp((isSignUp) => {
-            return !isSignUp;
-        });
-    }
 
     const responseMsg = (data) => {
         // console.log(data);
@@ -59,58 +41,36 @@ const AuthForm = (props) =>{
         return 0;
     }
 
-    const loginFirebaseUser = useCallback( async (userData) => {
-        let url = '';
-        if(isSignUp){
-            url = urls.signUp;
-        }else{
-            url = urls.login;
-        }
+    const loginFirebaseUser = useCallback( async (apiPayload) => {
+        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB8_J6A_7bsjzl4Zy3OkODi-GMz9MftKyY';
         try {
             const response = await fetch(url, {
                 method: "POST",
-                body: JSON.stringify({
-                    email: userData.email,
-                    password: userData.password,
-                    returnSecureToken: true,
-                }),
+                body: JSON.stringify(apiPayload),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
             const data = await response.json();
             console.log(data);
-            if(data && data.idToken){
-                authCtx.login(data.idToken);
-                dispatch(authActions.login(data.idToken));
-                if(data.kind == "identitytoolkit#SignupNewUserResponse"){
-                    responseMsg('Sign Up Successful');
-                }else{
-                    responseMsg('Login Successful');
-                }
-                history.replace('/profile');
-            }
-            responseMsg(data);
+            if(data.kind == "identitytoolkit#GetOobConfirmationCodeResponse"){
+                responseMsg(data);
+                history.replace('/auth');
+            }            
         } catch (err) {
             console.log(err);
             responseMsg(err);
-            dispatch(authActions.logout());
         }
-    },[isSignUp]);
+    },[]);
 
 
     const submitHandler = (event) => {
         event.preventDefault();
-        const userData = {
+        const apiPayload = {
             email: inputEmailRef.current.value,
-            password: inputPasswordRef.current.value,
+            requestType: 'PASSWORD_RESET',
         }
-                
-        if( inputConfirmPasswordRef.current.value == inputPasswordRef.current.value){
-            loginFirebaseUser(userData);
-        }else {
-            responseMsg('Please enter the same password');
-        }        
+        loginFirebaseUser(apiPayload);
     }
   
     return (
@@ -122,28 +82,18 @@ const AuthForm = (props) =>{
                     <Form.Label>Email Id</Form.Label>
                     <Form.Control type='email' placeholder='name@example.com' className="col-6" ref={inputEmailRef} />
                 </Form.Group>
-                <Form.Group className='row mb-3'>
+                {/* <Form.Group className='row mb-3'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control type='password' ref={inputPasswordRef} />
-                </Form.Group>
-                <Form.Group className='row mb-3'>
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type='password'ref={inputConfirmPasswordRef} />
-                </Form.Group>
+                </Form.Group> */}
                 <Button className='text-right' type='submit'>
-                    {!isSignUp ? 'Login': 'Sign up'}
+                    Email password reset link
                 </Button>
-                <Form.Group>
-                    <Link to='/forgotPassword'>Forgot Password?</Link>
-                </Form.Group>
             </Form>
             <hr />
-            <Button className="btn btn-secondary" onClick={signUpLoginHandler}>
-            {!isSignUp ? 'Don\'t have an account? Sign Up': 'Have an account? Login'}
-            </Button>
         </div>
         </>
     );
 };
 
-export default AuthForm;
+export default ForgotPassword;
