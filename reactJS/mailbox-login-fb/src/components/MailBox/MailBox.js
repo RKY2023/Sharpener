@@ -13,6 +13,7 @@ const MailBox = (props) => {
                 <Col>
                     <div>Inbox</div>
                     <div>Inbox</div>
+                    <div>DELTE MAIL</div>
                     <div>Inbox</div>
                 </Col>
             </Row>
