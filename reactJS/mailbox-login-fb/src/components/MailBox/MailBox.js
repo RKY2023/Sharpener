@@ -12,7 +12,7 @@ const MailBox = (props) => {
             <Row>
                 <Col>
                     <div>Inbox</div>
-                    <div>Inbox</div>
+                    <div>2 SEC</div>
                     <div>DELTE MAILCH</div>
                     <div>SEE NMAIL</div>
                 </Col>
