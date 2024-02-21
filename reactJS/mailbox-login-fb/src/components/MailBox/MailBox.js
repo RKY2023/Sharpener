@@ -15,6 +15,7 @@ const MailBox = (props) => {
                     <div>2 SEC</div>
                     <div>DELTE MAILCH</div>
                     <div>SEE NMAIL</div>
+                    <div>custom hook</div>
                 </Col>
             </Row>
         </Col>
