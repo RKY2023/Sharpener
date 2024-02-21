@@ -33,7 +33,7 @@ const Auth = (props) => {
                 email: inputEmailRef.current.value,
                 password: inputPasswordRef.current.value,
             }
-            dispatch(AuthFirebaseLogin());
+            dispatch(AuthFirebaseLogin(userData));
         } else {
             setStatus('Please write the same password');
         }
