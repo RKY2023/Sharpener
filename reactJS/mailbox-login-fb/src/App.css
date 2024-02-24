@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+.alert-class {
+  width: 100%;
+  height: 0px;
+  font-size: 0px;
+  font-weight: 700;
+  padding: 0rem;
+  text-align: center;
+  background-color: grey;
+  animation-name: example;
+  animation-duration: 4s;
+  /* animation-delay: 0s; */
+}
+
+@keyframes example {
+  0%   {width:100%; height:0px; font-size: 0px; padding: 0rem;}
+  25%  {width:100%; height:50px; font-size: 25px; padding: .5rem;}
+  75%  {width:100%; height:50px; font-size: 25px; padding: .5rem;}
+  100% {width:100%; height:0px; font-size: 0px; padding: 0rem;}
+}
