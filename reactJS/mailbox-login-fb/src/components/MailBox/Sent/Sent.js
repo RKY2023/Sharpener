@@ -46,7 +46,7 @@ const Sent = (props) => {
 
         const timer1 = setTimeout(()=>{
             dispatch(retrieveMails(user,'sent'));
-        }, 30000);
+        }, 3000);
         const clrTImer = () => {
             clearTimeout(timer1);
         };

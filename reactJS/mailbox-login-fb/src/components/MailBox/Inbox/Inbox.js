@@ -53,7 +53,7 @@ const Inbox = (props) => {
         }
         const timer1 = setTimeout(()=>{
             dispatch(retrieveMails(user));
-        }, 30000);
+        }, 3000);
         const clrTImer = () => {
             clearTimeout(timer1);
         };

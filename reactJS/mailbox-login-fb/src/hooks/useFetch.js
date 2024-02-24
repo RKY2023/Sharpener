@@ -28,7 +28,7 @@ const useFetch = (url) => {
         }
         fetchFn();
     },[url]);
-    return [data];
+    return data;
 };
 
 export default useFetch;
