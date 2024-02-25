@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import MeetupList from '@/components/meetups/MeetupList'
+import { useEffect, useState } from 'react'
 // import React from 'react';
 const DUMMyY_MEETUPS = [
   {
@@ -27,6 +28,12 @@ const DUMMyY_MEETUPS = [
 ]
 
 export default function Home() {
+  const [loadedMeetups, setLoadedMeetups] = useState();
+
+  useEffect(() => {
+    setLoadedMeetups(DUMMyY_MEETUPS);
+  },[]);
+  
   return (
     <MeetupList meetups={DUMMyY_MEETUPS} />
   )
