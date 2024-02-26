@@ -1,9 +1,15 @@
-const NewMeetup = (props) => {
+import NewMeetupForm from "@/components/meetups/NewMeetupForm";
+
+const NewMeetupPage = (props) => {
+    function addMeetupHandler (enteredMeetupData) {
+        console.log(enteredMeetupData);
+    };
+    
     return (
         <>
-        New Meetup
+        <NewMeetupForm onAddMeetup={addMeetupHandler} />
         </>
     );
 };
 
-export default NewMeetup;
+export default NewMeetupPage;
