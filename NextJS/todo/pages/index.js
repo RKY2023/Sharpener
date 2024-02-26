@@ -16,7 +16,7 @@ export default function Home() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <h1>TOdo App</h1>
-        create a todo app includes
+        create a todo app includess
         <ul>
             <li>*add todo </li>
             <li>*retrieve todo </li>
