@@ -1,4 +1,5 @@
 import NewMeetupForm from "@/components/meetups/NewMeetupForm";
+import Head from "next/head";
 
 const NewMeetupPage = (props) => {
     async function addMeetupHandler (enteredMeetupData) {
@@ -23,6 +24,13 @@ const NewMeetupPage = (props) => {
     
     return (
         <>
+        <Head>
+            <title>Add a new meetup</title>
+            <meta
+                name="description"
+                content="networking opportunities."
+            />
+        </Head>
         <NewMeetupForm onAddMeetup={addMeetupHandler} getMeetup={getMeetupHandler} />
         </>
     );

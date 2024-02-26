@@ -83,8 +83,19 @@ function Home (props) {
   // console.log(props.meetups);
   
   return (
-    // <MeetupList meetups={DUMMyY_MEETUPS} />
+    <>
+    <Head>
+      <title>NextJs Meet</title>
+      <meta
+        name='description'
+        content='Get meet up '
+      />
+    </Head>
+    {/* <MeetupList meetups={DUMMyY_MEETUPS} /> */}
     <MeetupList meetups={props.meetups} />
+    </>
+    
+    
   );
 };
 
