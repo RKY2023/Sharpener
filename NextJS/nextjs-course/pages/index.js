@@ -25,16 +25,30 @@ const DUMMyY_MEETUPS = [
     address: 'varanasi 3',
     description: 'GHAts 3'
   },
-]
-// getStaticProps executed before main components
-export async function getStaticProps() { 
-  //
+];
+
+export async function getServerSideProps(context) {
+  const req = context.req;
+  const res = context.res;
+
+  // fetch data frin an API
+
   return {
     props: {
       meetups: DUMMyY_MEETUPS,
-    }
+    },
   }
 }
+// // getStaticProps executed before main components
+// export async function getStaticProps() { 
+//   //
+//   return {
+//     props: {
+//       meetups: DUMMyY_MEETUPS,
+//     },
+//     revalidate: 10 //10 secs
+//   }
+// }
 
 function Home (props) {
   // const [loadedMeetups, setLoadedMeetups] = useState([]);
