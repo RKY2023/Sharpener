@@ -27,6 +27,10 @@ function NewMeetupForm(props) {
     props.onAddMeetup(meetupData);
   }
 
+  function add () {
+    props.getMeetup();
+  }
+
   return (
     <Card>
       <form className={classes.form} onSubmit={submitHandler}>
@@ -53,8 +57,10 @@ function NewMeetupForm(props) {
         </div>
         <div className={classes.actions}>
           <button>Add Meetup</button>
+          
         </div>
       </form>
+      <button onClick={add}>Geet Meetup</button>
     </Card>
   );
 }
