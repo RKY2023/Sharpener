@@ -26,15 +26,28 @@ const DUMMyY_MEETUPS = [
     description: 'GHAts 3'
   },
 ]
+// getStaticProps executed before main components
+export async function getStaticProps() { 
+  //
+  return {
+    props: {
+      meetups: DUMMyY_MEETUPS,
+    }
+  }
+}
 
-export default function Home() {
-  const [loadedMeetups, setLoadedMeetups] = useState();
+function Home (props) {
+  // const [loadedMeetups, setLoadedMeetups] = useState([]);
 
-  useEffect(() => {
-    setLoadedMeetups(DUMMyY_MEETUPS);
-  },[]);
+  // useEffect(() => {
+  //   setLoadedMeetups(DUMMyY_MEETUPS);
+  // },[]);
+  // console.log(props.meetups);
   
   return (
-    <MeetupList meetups={DUMMyY_MEETUPS} />
-  )
-}
+    // <MeetupList meetups={DUMMyY_MEETUPS} />
+    <MeetupList meetups={props.meetups} />
+  );
+};
+
+export default Home;
