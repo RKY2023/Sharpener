@@ -68,4 +68,24 @@
 // }
 // console.log(a)
 
+// ES6 10 features
+// const & let scope
+// let & const have block scope
+// arrow functions
+
+// promises & callbacks
+// spread operator
+// call, apply & bind
+// eventlisteners
+// Object.keys()
+// classes
+// find, split, join etc 
+// call, apply bind
+// call	
+// call method is used for 
+// The main diffrence b/w them are
+// array.foreach does not return anyhting / undefined, but runs for all indexes in it.
+// array.map return a mapped value fo reach indexes / items in that array as an array.
+// array.filter filters an array based the condition & return those indexes /items which qualify that condition.
+// array.reduce is a function that reduces the value 
 

@@ -1,4 +1,8 @@
-
+// step 1 : understand variables & function 
+// Hoisitng
+//
+// js function is like class with contructor & methods and objects
+// fat arrow ===  binds this object with function.
 
 // function getName() {
 //     console.log("function");
@@ -151,7 +155,8 @@ Uses of Closures:
 // fun.call(obj)
 // fun.call(obj, functionarguments)
 // fun.apply(obj, array) // here array of arguments 
-// fun.bind(obj) // upgrade of call i.e. it automatically binds parameter with function
+// fun.bind(obj) // upgrade of call i.e. it automatically binds arguments with function // default run will be an object with native code
+// fun.bind(obj).(argument) // 
 // Bind returns a function with object attached to it
 // Call and apply invokes the function with the object and arguments
 
@@ -287,11 +292,27 @@ Uses of Closures:
 // x(function y(){
 // setTimeout(() => console.log('inside y'), 0)
 // })
-window.addEventListener("DOMContentLoaded", () => { console.log('DOM HAS LOADED') })
-document.addEventListener("DOMContentLoaded", () => { console.log('DOM HAS LOADED') })
-window.addEventListener("DOMContentLoaded", console.log('DOM HAS LOADED'))
-document.addEventListener("DOMContentLoaded", console.log('DOM HAS LOADED'))
+// window.addEventListener("DOMContentLoaded", () => { console.log('DOM HAS LOADED') })
+// document.addEventListener("DOMContentLoaded", () => { console.log('DOM HAS LOADED') })
+// window.addEventListener("DOMContentLoaded", console.log('DOM HAS LOADED'))
+// document.addEventListener("DOMContentLoaded", console.log('DOM HAS LOADED'))
+// function y(){
 
+
+
+//   for(let i=1;i<6;i++){
+  
+//   setTimeout(() => console.log(i ), i * 1000)
+//   console.log('Done Coding')
+//   }
+  
+  
+  
+  
+  
+//   }
+  
+//   y();
 
 
 
@@ -533,3 +554,5 @@ timer2
 
 // Oprator rest & spread operator (...)
 */
+
+

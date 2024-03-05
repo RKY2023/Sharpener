@@ -1,3 +1,5 @@
+
+
 // var arr = [1, 2,3,5]
 // var newArr = arr.forEach((item, i ) => {
 // console.log(item + 'index' + i)
