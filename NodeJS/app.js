@@ -1,4 +1,5 @@
 const http = require('http');
+const bodyParser = require('body-parser');
 // const routes = require('./routes');
 // console.log(routes.someText);
 // const server = http.createServer(routes.handler);
@@ -6,6 +7,20 @@ const http = require('http');
 const express = require('express');
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false}));
+
+app.use('/', (req, res, next) => {
+    res.send('<form action="/product" method="POST"> <input type="submit" name="title"/></form>')
+})
+
+app.use('/', (req, res, next) => {
+    res.send('<form action="/product" method="POST"> <input type="submit" name="title"/></form>')
+})
+
+app.use('/', (req, res, next) => {
+    res.send('<form action="/product" method="POST"> <input type="submit" name="title"/></form>')
+})
 
 app.use((req, res, next) => {
     console.log('In the Middleware');
