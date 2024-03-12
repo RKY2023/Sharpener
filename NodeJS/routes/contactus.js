@@ -4,9 +4,9 @@ const express = require("express");
 const rootDir = require('../util/path');
 const router = express.Router();
 
-router.use("/contactus", (req, res, next) => {
-    res.sendFile(path.join(rootDir, 'views', 'contact-us.html'));
-});
+const contactController = require('../controllers/contacts');
+
+router.get("/contactus", contactController.contactUsEmail);
 
 router.post("/sucess", (req, res, next) => {
 //   res.send(
