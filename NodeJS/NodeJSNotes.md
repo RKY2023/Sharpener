@@ -10,6 +10,8 @@ npm install nodemon --save
 
 # Express JS
 
+npm install nodemon --save-dev express fs http
+npm install nodemon --save-dev mysql2
 
 
 
