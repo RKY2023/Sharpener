@@ -12,7 +12,7 @@ npm install nodemon --save
 
 npm install nodemon --save-dev express fs http
 npm install nodemon --save-dev mysql2
-
+npm install nodemon --save-dev sequelize
 
 
 Resume building sharpener up

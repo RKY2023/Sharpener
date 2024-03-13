@@ -12,7 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "mysql2": "^3.9.2",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "sequelize": "^6.37.1"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
