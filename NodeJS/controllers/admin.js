@@ -55,16 +55,20 @@ exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   const product = new Product(prodId);
   // const product = new Product(prodId, updatedTitle, updatedImageUrl, updatedDescription, updatedPrice);
-  product.delete();
-  res.redirect('/admin/products');
+  product.delete().then(() => {
+    res.redirect('/admin/products');
+  }).catch(err => console.log(err));
+  
 }
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll(products => {
+  Product.fetchAll()
+  .then(([rows, fieldData]) => {
     res.render('admin/products', {
-      prods: products,
+      prods: rows,
       pageTitle: 'Admin Products',
       path: '/admin/products'
     });
-  });
+  }).catch(err => console.log(err));
+  
 };

@@ -53,23 +53,14 @@ module.exports = class Product {
   }
   
   delete() {
-    getProductsFromFile( products => {
-        if (this.id) {
-            const newProducts = products.filter(prod => prod.id !== this.id);
-            fs.writeFile(p, JSON.stringify(newProducts), err => {
-              console.log(err);
-            });
-      }
-    });
+    return db.execute('DELETE FROM products WHERE products.id = ?', [this.id]);
   }
 
   static fetchAll() {
-    return db.execute('SELECT * FROM products')
-    .then()
-    .catch();
+    return db.execute('SELECT * FROM products');
   }
 
   static findById(id) {
-    return db.execute('SELECT * FROM products WHERE products.id = ?',[id])
+    return db.execute('SELECT * FROM products WHERE products.id = ?',[id]);
   }
 };

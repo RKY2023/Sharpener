@@ -1,9 +1,11 @@
 const Product = require("../models/product");
 const Cart = require("../models/cart");
 exports.getProducts = (req, res, next) => {
+  console.log('aa');
   Product.fetchAll().then(([rows, fieldData]) => {
+    console.log('ab');
     res.render("shop/product-list", {
-      prods: products,
+      prods: rows,
       pageTitle: "All Products",
       path: "/products",
     });
