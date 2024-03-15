@@ -14,6 +14,9 @@ npm install nodemon --save-dev express fs http
 npm install nodemon --save-dev mysql2
 npm install nodemon --save-dev sequelize
 
+## Notes
+Association / Relation in SQL
+
 
 Resume building sharpener up
 4/8
