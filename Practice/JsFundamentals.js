@@ -515,6 +515,8 @@ timer2
 
 
 */
+// then doesnt support await itself needs await keyword. then runs in parallel doesnt wait for for 1st then
+
 // async await replaced Promises Hell ( resolve -> then -> console.log)
 /*
 // why await always inside async function ?
