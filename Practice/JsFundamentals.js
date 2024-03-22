@@ -4,6 +4,16 @@
 // js function is like class with contructor & methods and objects
 // fat arrow ===  binds this object with function.
 
+/*
+// fat arrow vs regualr function 
+fat arrow makes code shorter
+- [this & arguments] object doesn't exist in arrow fn [this refer to prev obj b4r => fn creation]
+- arrow fn can be accessed onyl after initialisation like let and const [postinitialization access]
+- 
+
+*/
+
+
 // function getName() {
 //     console.log("function");
 // }
