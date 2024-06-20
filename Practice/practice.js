@@ -131,8 +131,49 @@
 // calc(area);
 
 
-const obj = { val : 2 }
-const obj1 = obj; //  passed as reference/ address / pointer of variable
-obj.val = 5;
-console.log(obj.val); // val is 5 
-console.log(obj1.val); // val is 5 
+// const obj = { val : 2 }
+// const obj1 = obj; //  passed as reference/ address / pointer of variable
+// obj.val = 5;
+// console.log(obj.val); // val is 5 
+// console.log(obj1.val); // val is 5 
+
+
+// function sample (){
+
+//   for (let i=0; i<=5;i++){
+  
+//   setTimeout (() => console.log(i), 1000 );
+  
+//   }
+  
+//   }
+//   sample()
+
+
+// let a=new Promise((resolve,reject) => {
+
+//   reject ({ msg: 'Something went wrong'});
+// });
+  
+//   a.then(ressolve => {
+//     console.log(ressolve)}).catch(err=>{console.log(err.msg) })
+
+
+function delay() {
+   //do whatever you want here
+   setTimeout(()=>{}, 3000);
+}
+async function  aawait(){
+  await delay(6000)
+
+  setTimeout (()=>{
+  
+  console.log("first")
+  
+  },10000)
+  
+  console.log("second");
+  
+}
+aawait()
+
